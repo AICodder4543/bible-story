@@ -289,6 +289,8 @@ window.addEventListener('load', () => {
   drawRoad();
   goTo(0);
   preloadEraImages();
+  const splash = document.getElementById('splash');
+  if (splash) setTimeout(() => splash.classList.add('hide'), 500);
 });
 setTimeout(drawRoad, 50);
 

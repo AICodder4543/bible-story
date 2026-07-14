@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff4d6"/>
+      <stop offset="100%" stop-color="#f7dfa0"/>
+    </linearGradient>
+    <linearGradient id="crossGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8543c"/>
+      <stop offset="100%" stop-color="#a8341f"/>
+    </linearGradient>
+    <linearGradient id="coverGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6b4a2f"/>
+      <stop offset="100%" stop-color="#4a3220"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="248" fill="url(#bg)" stroke="#c9a24a" stroke-width="8"/>
+
+  <g>
+    <rect x="222" y="96" width="68" height="220" rx="10" fill="url(#crossGrad)"/>
+    <rect x="164" y="176" width="184" height="64" rx="10" fill="url(#crossGrad)"/>
+  </g>
+
+  <g>
+    <path d="M256 300 L256 420 C256 420 210 396 130 402 C124 402 118 396 118 388 L118 300 C118 292 124 286 130 286 C206 280 256 300 256 300 Z" fill="url(#coverGrad)"/>
+    <path d="M256 300 L256 420 C256 420 302 396 382 402 C388 402 394 396 394 388 L394 300 C394 292 388 286 382 286 C306 280 256 300 256 300 Z" fill="url(#coverGrad)"/>
+
+    <path d="M256 308 L256 408 C256 408 216 388 148 393 C143 393 138 388 138 383 L138 308 C138 301 143 296 148 296 C210 291 256 308 256 308 Z" fill="#fdf6e6"/>
+    <path d="M256 308 L256 408 C256 408 296 388 364 393 C369 393 374 388 374 383 L374 308 C374 301 369 296 364 296 C302 291 256 308 256 308 Z" fill="#fdf6e6"/>
+
+    <line x1="160" y1="318" x2="228" y2="315" stroke="#c9b489" stroke-width="4" stroke-linecap="round"/>
+    <line x1="160" y1="336" x2="228" y2="332" stroke="#c9b489" stroke-width="4" stroke-linecap="round"/>
+    <line x1="160" y1="354" x2="228" y2="349" stroke="#c9b489" stroke-width="4" stroke-linecap="round"/>
+
+    <line x1="352" y1="318" x2="284" y2="315" stroke="#c9b489" stroke-width="4" stroke-linecap="round"/>
+    <line x1="352" y1="336" x2="284" y2="332" stroke="#c9b489" stroke-width="4" stroke-linecap="round"/>
+    <line x1="352" y1="354" x2="284" y2="349" stroke="#c9b489" stroke-width="4" stroke-linecap="round"/>
+
+    <rect x="252" y="300" width="8" height="112" fill="#4a3220"/>
+  </g>
+</svg>
