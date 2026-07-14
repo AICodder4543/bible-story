@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>73 Books, One Hand — The Catholic Bible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A4A;
+    --cream:#FBF3E3;
+    --paper:#FFFCF6;
+    --gold:#E8A33D;
+    --sage:#5C8A63;
+    --amethyst:#8B6BAE;
+    --teal:#3F87A6;
+    --ember:#C1502E;
+    --line: rgba(27,42,74,0.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    margin:0;
+    line-height:1.05;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:0.6;
+  }
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    padding:5.5rem 1.5rem 4rem;
+    max-width:1100px;
+    margin:0 auto;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    padding:0.4rem 0.9rem;
+    border:1px solid var(--line);
+    border-radius:100px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.04em;
+    color:var(--ink);
+    background:var(--paper);
+    margin-bottom:1.8rem;
+  }
+  .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--ember);}
+  .hero h1{
+    font-size:clamp(2.6rem, 8vw, 5.2rem);
+    font-weight:900;
+    letter-spacing:-0.02em;
+  }
+  .hero h1 .num{
+    color:var(--ember);
+    font-style:italic;
+    font-weight:600;
+  }
+  .hero p.sub{
+    max-width:520px;
+    margin:1.5rem auto 0;
+    font-size:1.05rem;
+    line-height:1.6;
+    opacity:0.78;
+  }
+  .hero .cta-row{
+    margin-top:2.4rem;
+    display:flex;
+    gap:0.8rem;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:0.95rem;
+    padding:0.85rem 1.6rem;
+    border-radius:100px;
+    border:none;
+    cursor:pointer;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:focus-visible{outline:3px solid var(--teal); outline-offset:2px;}
+  .btn-primary{
+    background:var(--ink);
+    color:var(--cream);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(27,42,74,0.25);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--ink); transform:translateY(-2px);}
+
+  /* split tally */
+  .tally{
+    margin-top:3.2rem;
+    display:flex;
+    justify-content:center;
+    gap:0;
+    flex-wrap:wrap;
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+    background:var(--paper);
+  }
+  .tally .cell{
+    padding:1.4rem 2.2rem;
+    text-align:left;
+    border-right:1px solid var(--line);
+  }
+  .tally .cell:last-child{border-right:none;}
+  .tally .cell .big{
+    font-family:'Fraunces', serif;
+    font-weight:800;
+    font-size:2.1rem;
+  }
+  .tally .cell.ot .big{color:var(--sage);}
+  .tally .cell.nt .big{color:var(--teal);}
+  .tally .cell.total .big{color:var(--ember);}
+  .tally .cell .lab{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    opacity:0.6;
+  }
+
+  /* ===== HAND SECTION ===== */
+  .hand-section{
+    max-width:1100px;
+    margin:2rem auto 0;
+    padding:2rem 1.5rem 5rem;
+  }
+  .hand-section .head{
+    text-align:center;
+    margin-bottom:0.6rem;
+  }
+  .hand-section h2{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    font-weight:700;
+    margin-top:0.4rem;
+  }
+  .hand-section .lede{
+    max-width:520px;
+    margin:0.9rem auto 0;
+    text-align:center;
+    opacity:0.75;
+    line-height:1.6;
+  }
+
+  .hand-wrap{
+    margin-top:3.5rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2.5rem;
+  }
+
+  .hand{
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:0.5rem;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .finger-btn{
+    all:unset;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    width:64px;
+    height:var(--h, 180px);
+    border-radius:32px 32px 14px 14px;
+    background:var(--c);
+    color:var(--cream);
+    position:relative;
+    transition:transform 0.25s cubic-bezier(.2,.9,.3,1.3), box-shadow 0.25s ease, filter 0.25s ease;
+    box-shadow:inset 0 -10px 18px rgba(0,0,0,0.08);
+  }
+  .finger-btn:hover, .finger-btn:focus-visible{
+    transform:translateY(-10px);
+    box-shadow:0 14px 24px rgba(27,42,74,0.28);
+  }
+  .finger-btn:focus-visible{outline:3px solid var(--ink); outline-offset:3px;}
+  .finger-btn.active{
+    transform:translateY(-16px);
+    box-shadow:0 18px 30px rgba(27,42,74,0.32);
+  }
+  .finger-btn .fnum{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:600;
+    font-size:0.75rem;
+    background:rgba(255,255,255,0.28);
+    border-radius:50%;
+    width:24px;height:24px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:0.5rem;
+  }
+  .finger-btn .flabel{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:0.68rem;
+    text-align:center;
+    padding:0 0.3rem 0.7rem;
+    line-height:1.15;
+  }
+  .palm{
+    width:340px;
+    max-width:80vw;
+    height:150px;
+    background:var(--ink);
+    border-radius:50% 50% 24px 24px / 40% 40% 24px 24px;
+    margin-top:-4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--cream);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    opacity:0.92;
+  }
+
+  .detail-panel{
+    width:100%;
+    max-width:680px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:2rem 2rem 1.6rem;
+    transition:box-shadow 0.2s ease;
+  }
+  .detail-panel .dp-top{
+    display:flex;
+    align-items:center;
+    gap:0.9rem;
+    margin-bottom:0.4rem;
+  }
+  .dp-swatch{
+    width:14px;height:14px;border-radius:4px;
+  }
+  .detail-panel h3{
+    font-size:1.5rem;
+    font-weight:700;
+  }
+  .detail-panel .count{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    opacity:0.6;
+    margin-left:auto;
+  }
+  .detail-panel .desc{
+    opacity:0.75;
+    line-height:1.6;
+    margin:0.6rem 0 1.3rem;
+    font-size:0.95rem;
+  }
+  .book-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+    gap:0.5rem 0.9rem;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .book-grid li{
+    display:flex;
+    gap:0.5rem;
+    font-size:0.88rem;
+    padding:0.35rem 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .book-grid li .bn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    opacity:0.45;
+    min-width:1.1rem;
+  }
+  .hint{
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    opacity:0.5;
+    letter-spacing:0.04em;
+  }
+
+  /* ===== TESTAMENT SECTIONS ===== */
+  .testament{
+    max-width:1100px;
+    margin:0 auto;
+    padding:3rem 1.5rem;
+  }
+  .testament .t-head{
+    display:flex;
+    align-items:baseline;
+    gap:1rem;
+    margin-bottom:2.2rem;
+    flex-wrap:wrap;
+  }
+  .testament .t-head h2{
+    font-size:clamp(1.8rem, 4vw, 2.4rem);
+  }
+  .testament .t-head .count-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    padding:0.3rem 0.7rem;
+    border-radius:100px;
+    border:1px solid var(--line);
+  }
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:1.1rem;
+  }
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:1.5rem;
+    cursor:pointer;
+  }
+  .card .c-head{
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+    margin-bottom:0.3rem;
+  }
+  .card .c-icon{
+    width:34px;height:34px;
+    border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.05rem;
+    flex-shrink:0;
+  }
+  .card h3{
+    font-size:1.05rem;
+    font-weight:700;
+  }
+  .card .c-count{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    opacity:0.55;
+    margin-left:auto;
+  }
+  .card .c-desc{
+    font-size:0.85rem;
+    opacity:0.68;
+    line-height:1.5;
+    margin:0.5rem 0 0.9rem;
+  }
+  .card ul{
+    list-style:none;
+    margin:0; padding:0;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.35s ease;
+  }
+  .card.open ul{max-height:600px;}
+  .card ul li{
+    font-size:0.86rem;
+    padding:0.28rem 0;
+    display:flex;
+    gap:0.5rem;
+    border-top:1px dashed var(--line);
+  }
+  .card ul li:first-child{border-top:none;}
+  .card ul li .bn{
+    font-family:'JetBrains Mono', monospace;
+    opacity:0.4;
+    min-width:1.1rem;
+    font-size:0.75rem;
+  }
+  .card .expand-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    opacity:0.5;
+    display:flex;
+    align-items:center;
+    gap:0.3rem;
+  }
+  .card .expand-tag svg{transition:transform 0.3s ease;}
+  .card.open .expand-tag svg{transform:rotate(180deg);}
+
+  /* Letters of Paul special two-col */
+  .paul-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 1.2rem;
+  }
+  .paul-cols .col-title{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    opacity:0.5;
+    margin:0.6rem 0 0.2rem;
+  }
+
+  /* ===== FOOTER SUMMARY ===== */
+  footer{
+    background:var(--ink);
+    color:var(--cream);
+    padding:3.5rem 1.5rem 2.5rem;
+    margin-top:2rem;
+  }
+  .foot-inner{
+    max-width:1100px;
+    margin:0 auto;
+    text-align:center;
+  }
+  footer h2{
+    font-size:clamp(1.6rem,4vw,2.2rem);
+    color:var(--cream);
+  }
+  .foot-tally{
+    display:flex;
+    justify-content:center;
+    gap:2.5rem;
+    margin:1.8rem 0 2.2rem;
+    flex-wrap:wrap;
+  }
+  .foot-tally .f-cell .big{
+    font-family:'Fraunces', serif;
+    font-weight:800;
+    font-size:2.3rem;
+  }
+  .foot-tally .f-cell .lab{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    opacity:0.6;
+    letter-spacing:0.06em;
+  }
+  footer .verse{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.05rem;
+    opacity:0.85;
+    max-width:480px;
+    margin:0 auto;
+  }
+  footer .verse cite{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-style:normal;
+    font-size:0.68rem;
+    opacity:0.55;
+    margin-top:0.6rem;
+    letter-spacing:0.05em;
+  }
+
+  ::selection{background:var(--gold); color:var(--ink);}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-badge"><span class="dot"></span>THE CATHOLIC BIBLE, EXPLAINED WITH ONE HAND</div>
+  <h1>You already own<br>a Bible map — <span class="num">73</span> books,<br>five fingers.</h1>
+  <p class="sub">The Old and New Testaments sorted the way your hand sorts anything: five groups, easy to count, impossible to forget. Tap a finger below and start exploring.</p>
+  <div class="cta-row">
+    <button class="btn btn-primary" onclick="document.getElementById('hand').scrollIntoView()">Explore the hand ↓</button>
+    <button class="btn btn-ghost" onclick="document.getElementById('nt').scrollIntoView()">Jump to New Testament</button>
+  </div>
+
+  <div class="tally">
+    <div class="cell ot"><div class="big" data-count="46">0</div><div class="lab">Old Testament</div></div>
+    <div class="cell nt"><div class="big" data-count="27">0</div><div class="lab">New Testament</div></div>
+    <div class="cell total"><div class="big" data-count="73">0</div><div class="lab">Together</div></div>
+  </div>
+</section>
+
+<section class="hand-section" id="hand">
+  <div class="head">
+    <div class="eyebrow">Old Testament · 46 books</div>
+    <h2>Count it on one hand</h2>
+    <p class="lede">Each finger holds a category. Thumb to pinky, the Old Testament adds up exactly the way your hand does.</p>
+  </div>
+
+  <div class="hand-wrap">
+    <div class="hand" id="handEl">
+      <!-- order left-to-right: pinky(5) ring(4) middle(3) index(2) thumb(1) to mimic right hand palm-up, but simpler: thumb, index, middle, ring, pinky -->
+    </div>
+    <div class="palm">Old Testament · 46 Books</div>
+    <div class="detail-panel" id="detailPanel"></div>
+    <div class="hint">tap or click any finger to open its books</div>
+  </div>
+</section>
+
+<section class="testament" id="ot-full">
+  <div class="t-head">
+    <h2>Old Testament, in full</h2>
+    <span class="count-badge">46 books</span>
+  </div>
+  <div class="cards" id="otCards"></div>
+</section>
+
+<section class="testament" id="nt">
+  <div class="t-head">
+    <h2>New Testament</h2>
+    <span class="count-badge">27 books</span>
+  </div>
+  <div class="cards" id="ntCards"></div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <h2>The Catholic Bible: 73 books</h2>
+    <div class="foot-tally">
+      <div class="f-cell"><div class="big">46</div><div class="lab">Old Testament</div></div>
+      <div class="f-cell"><div class="big">27</div><div class="lab">New Testament</div></div>
+      <div class="f-cell"><div class="big">73</div><div class="lab">Together</div></div>
+    </div>
+    <p class="verse">"All Scripture is God-breathed and is useful for teaching, rebuking, correcting and training in righteousness."<cite>2 Timothy 3:16</cite></p>
+  </div>
+</footer>
+
+<script>
+// ---------- DATA ----------
+const OT = [
+  {key:"law", label:"The Law", sub:"Pentateuch", color:"var(--gold)", icon:"📜", n:5,
+    desc:"God's covenant and the foundation of His people.",
+    books:["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"]},
+  {key:"historical", label:"Historical", sub:"Books", color:"var(--sage)", icon:"👑", n:16,
+    desc:"The history of God's people and His works.",
+    books:["Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Tobit","Judith","Esther","1 Maccabees","2 Maccabees"]},
+  {key:"wisdom", label:"Wisdom", sub:"Books", color:"var(--amethyst)", icon:"🎵", n:7,
+    desc:"Teach us how to live and seek wisdom.",
+    books:["Job","Psalms","Proverbs","Ecclesiastes","Song of Songs","Wisdom","Sirach (Ecclesiasticus)"]},
+  {key:"prophetic", label:"Prophetic", sub:"Books", color:"var(--teal)", icon:"🌳", n:18,
+    desc:"God's call to conversion and His promises.",
+    books:["Isaiah","Jeremiah","Lamentations","Baruch","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi"]},
+];
+
+const OT_SUMMARY = {key:"summary", label:"Summary", sub:"of the OT", color:"var(--ember)", icon:"🔥", n:46,
+  desc:"5 (Law) + 16 (Historical) + 7 (Wisdom) + 18 (Prophetic) = 46 books.",
+  books:["Law — 5","Historical — 16","Wisdom — 7","Prophetic — 18"]};
+
+const NT = [
+  {key:"gospels", label:"Gospels", color:"var(--gold)", icon:"✝️", n:4,
+    desc:"The life, teachings, death and resurrection of Jesus Christ.",
+    books:["Matthew","Mark","Luke","John"]},
+  {key:"nt-historical", label:"Historical Book", color:"var(--sage)", icon:"⛪", n:1,
+    desc:"The early Church takes shape and spreads the Gospel.",
+    books:["Acts of the Apostles"]},
+  {key:"paul", label:"Letters of Paul", color:"var(--teal)", icon:"✉️", n:14,
+    desc:"Major and minor letters written by St. Paul to churches and individuals.",
+    books:["Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews"],
+    split:{a:{title:"Major Letters (7)", items:["Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians"]}, b:{title:"Minor Letters (7)", items:["1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews"]}}},
+  {key:"catholic", label:"Catholic Letters", color:"var(--amethyst)", icon:"✝️", n:7,
+    desc:"Teaching, guidance and encouragement for the whole Church.",
+    books:["James","1 Peter","2 Peter","1 John","2 John","3 John","Jude"]},
+  {key:"prophecy", label:"Book of Prophecy", color:"var(--ember)", icon:"👑", n:1,
+    desc:"The final victory of God and the hope of glory.",
+    books:["Revelation"]},
+];
+
+const FINGERS = [
+  {...OT[0], height:150},
+  {...OT[1], height:200},
+  {...OT[2], height:225},
+  {...OT[3], height:210},
+  {...OT_SUMMARY, height:170},
+];
+
+// ---------- BUILD HAND ----------
+const handEl = document.getElementById('handEl');
+const detailPanel = document.getElementById('detailPanel');
+
+function renderBookList(item){
+  return `<div class="dp-top">
+      <span class="dp-swatch" style="background:${item.color}"></span>
+      <h3>${item.label}${item.sub ? ' <span style="opacity:.5;font-weight:400;">'+item.sub+'</span>' : ''}</h3>
+      <span class="count">${item.n} book${item.n>1?'s':''}</span>
+    </div>
+    <p class="desc">${item.desc}</p>
+    <ul class="book-grid">
+      ${item.books.map((b,i)=>`<li><span class="bn">${item.key==='summary'?'':String(i+1).padStart(2,'0')}</span>${b}</li>`).join('')}
+    </ul>`;
+}
+
+function showDetail(item){
+  detailPanel.innerHTML = renderBookList(item);
+  detailPanel.style.boxShadow = `0 10px 30px -12px ${item.color.replace('var(','').replace(')','')}`;
+}
+
+FINGERS.forEach((f, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'finger-btn';
+  btn.style.setProperty('--c', f.color);
+  btn.style.setProperty('--h', f.height + 'px');
+  btn.setAttribute('aria-label', f.label + ', ' + f.n + ' books');
+  btn.innerHTML = `<span class="fnum">${i+1}</span><span class="flabel">${f.label}</span>`;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.finger-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    showDetail(f);
+  });
+  handEl.appendChild(btn);
+});
+// default open middle-ish (historical)
+document.querySelectorAll('.finger-btn')[1].classList.add('active');
+showDetail(FINGERS[1]);
+
+// ---------- BUILD OT CARDS ----------
+const otCardsEl = document.getElementById('otCards');
+OT.forEach(item => {
+  otCardsEl.appendChild(buildCard(item));
+});
+
+// ---------- BUILD NT CARDS ----------
+const ntCardsEl = document.getElementById('ntCards');
+NT.forEach(item => {
+  ntCardsEl.appendChild(buildCard(item));
+});
+
+function buildCard(item){
+  const card = document.createElement('div');
+  card.className = 'card';
+  let listHTML;
+  if(item.split){
+    listHTML = `<div class="paul-cols">
+      <div>
+        <div class="col-title">${item.split.a.title}</div>
+        <ul>${item.split.a.items.map((b,i)=>`<li><span class="bn">${i+1}</span>${b}</li>`).join('')}</ul>
+      </div>
+      <div>
+        <div class="col-title">${item.split.b.title}</div>
+        <ul>${item.split.b.items.map((b,i)=>`<li><span class="bn">${i+1}</span>${b}</li>`).join('')}</ul>
+      </div>
+    </div>`;
+  } else {
+    listHTML = `<ul>${item.books.map((b,i)=>`<li><span class="bn">${String(i+1).padStart(2,'0')}</span>${b}</li>`).join('')}</ul>`;
+  }
+  card.innerHTML = `
+    <div class="c-head">
+      <div class="c-icon" style="background:${item.color}22; color:${item.color}">${item.icon}</div>
+      <h3>${item.label}</h3>
+      <span class="c-count">${item.n} bk</span>
+    </div>
+    <p class="c-desc">${item.desc}</p>
+    ${listHTML}
+    <div class="expand-tag">
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      view books
+    </div>
+  `;
+  card.addEventListener('click', () => card.classList.toggle('open'));
+  return card;
+}
+
+// ---------- COUNT-UP HERO NUMBERS ----------
+function countUp(el, target, duration){
+  let start = null;
+  function step(ts){
+    if(!start) start = ts;
+    const progress = Math.min((ts - start) / duration, 1);
+    el.textContent = Math.floor(progress * target);
+    if(progress < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.querySelectorAll('.tally .big').forEach(el => {
+  const target = parseInt(el.dataset.count, 10);
+  if(reduceMotion){ el.textContent = target; }
+  else countUp(el, target, 1200 + Math.random()*400);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bible Story — A Journey Through Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="bg-decor" aria-hidden="true">
+  <img class="bg-icon" id="bgIconA">
+  <img class="bg-icon" id="bgIconB">
+</div>
+<div class="mood-wash" id="moodWash"></div>
+
+<header class="top-bar">
+  <h1>📖 The Bible Story <span>— A Journey Through Time</span></h1>
+  <div class="progress-wrap">
+    <div class="progress-label"><span id="exploredCount">0</span> / 6 eras explored</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</header>
+
+<main>
+  <div class="road-viewport" id="roadViewport">
+    <svg class="road-path" id="roadPath" preserveAspectRatio="none"></svg>
+    <div class="stations" id="stations"></div>
+  </div>
+
+  <div class="nav-controls">
+    <button id="prevBtn" class="nav-btn" aria-label="Previous era">◀ Prev</button>
+    <div class="dots" id="dots"></div>
+    <button id="nextBtn" class="nav-btn" aria-label="Next era">Next ▶</button>
+  </div>
+</main>
+
+<div class="overlay" id="overlay"></div>
+
+<section class="detail-panel" id="detailPanel">
+  <button class="close-btn" id="closeBtn" aria-label="Close">✕</button>
+  <div class="detail-banner-wrap">
+    <img class="detail-banner" id="detailBanner" alt="">
+    <div class="detail-banner-fade"></div>
+  </div>
+  <p class="image-credit" id="imageCredit"></p>
+  <div class="detail-header" id="detailHeader">
+    <div class="detail-icon" id="detailIcon"></div>
+    <div>
+      <h2 id="detailTitle"></h2>
+      <div class="detail-dates" id="detailDates"></div>
+    </div>
+  </div>
+  <p class="detail-summary" id="detailSummary"></p>
+  <p class="tap-hint">👉 Tap a card to meet the person in the story!</p>
+  <div class="event-cards" id="eventCards"></div>
+</section>
+
+<div class="overlay overlay-2" id="charOverlay"></div>
+
+<section class="character-modal" id="characterModal">
+  <button class="close-btn" id="charCloseBtn" aria-label="Close">✕</button>
+  <div class="character-avatar" id="charAvatar"></div>
+  <h2 class="character-name" id="charName"></h2>
+  <p class="character-story" id="charStory"></p>
+</section>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
