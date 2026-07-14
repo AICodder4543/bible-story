@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bible Explorers — Genesis to Revelation</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1130">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141b3d;
+    --night:#0d1130;
+    --night2:#171f57;
+    --gold:#d4a24c;
+    --gold-soft:#e8c987;
+    --cream:#f2ead4;
+    --ruby:#c23652;
+    --emerald:#1f8f66;
+    --sapphire:#3457b2;
+    --amethyst:#6c4fc4;
+    --amber:#c97a33;
+    --rose:#c14868;
+    --teal:#1f9e91;
+    --line: rgba(255,255,255,0.12);
+    --radius: 22px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Work Sans', sans-serif;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(212,162,76,0.09), transparent 40%),
+      radial-gradient(circle at 85% 18%, rgba(108,79,196,0.13), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(31,143,102,0.09), transparent 45%),
+      var(--night);
+    color:var(--cream);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{ font-family:'Fraunces', serif; font-weight:600; }
+
+  /* ---------- Decorative mosaic band ---------- */
+  .mosaic-strip{
+    height:14px;
+    background: repeating-linear-gradient(90deg,
+      var(--ruby) 0 24px, var(--gold) 24px 48px, var(--emerald) 48px 72px,
+      var(--sapphire) 72px 96px, var(--amethyst) 96px 120px);
+    opacity:0.9;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:70px 20px 60px;
+    text-align:center;
+    overflow:hidden;
+    background: radial-gradient(ellipse at top, rgba(63,106,216,0.25), transparent 60%);
+  }
+  /* A row of pointed stained-glass banners — no circles, no cross */
+  .emblem-row{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap: clamp(6px, 2vw, 14px);
+    margin:0 auto 26px;
+    max-width:620px;
+    flex-wrap:nowrap;
+  }
+  .emblem{
+    --h: 128px;
+    flex:1 1 0;
+    max-width:110px;
+    height:var(--h);
+    clip-path: polygon(50% 0%, 88% 14%, 100% 100%, 0% 100%, 12% 14%);
+    display:flex; align-items:flex-end; justify-content:center;
+    padding-bottom:16px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    filter: saturate(1.05);
+    transition: transform .35s ease;
+  }
+  .emblem:nth-child(1){ --h:98px;  background:linear-gradient(160deg, var(--gold-soft), var(--amber)); }
+  .emblem:nth-child(2){ --h:142px; background:linear-gradient(160deg, var(--rose), var(--ruby)); }
+  .emblem:nth-child(3){ --h:164px; background:linear-gradient(160deg, var(--gold), var(--amber)); }
+  .emblem:nth-child(4){ --h:142px; background:linear-gradient(160deg, var(--teal), var(--sapphire)); }
+  .emblem:nth-child(5){ --h:98px;  background:linear-gradient(160deg, var(--amethyst), #5b3aa8); }
+  .emblem:hover{ transform:translateY(-6px); }
+  @media (prefers-reduced-motion: reduce){ .emblem{ transition:none; } }
+
+  .hero h1{
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    margin: 0 0 10px;
+    color: var(--gold-soft);
+    letter-spacing:0.5px;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.25);
+  }
+  .hero p.sub{
+    max-width:620px; margin:0 auto; font-size:1.15rem; line-height:1.55;
+    color: rgba(255,248,231,0.88);
+  }
+  .hero .tag{
+    display:inline-block; margin-top:18px; padding:8px 18px;
+    border:2px dashed rgba(245,185,66,0.6); border-radius:999px;
+    font-weight:800; letter-spacing:1px; font-size:0.8rem; text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  /* ---------- Nav ---------- */
+  .navwrap{
+    position:sticky; top:0; z-index:50;
+    background:rgba(17,23,58,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; gap:8px; overflow-x:auto; padding:12px 16px;
+    scrollbar-width:thin;
+  }
+  nav a{
+    flex:none;
+    text-decoration:none;
+    color:var(--cream);
+    background:rgba(255,255,255,0.06);
+    border:1px solid var(--line);
+    padding:8px 14px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:0.82rem;
+    white-space:nowrap;
+    transition: all .2s ease;
+  }
+  nav a:hover, nav a:focus-visible{
+    background:var(--gold);
+    color:var(--ink);
+    border-color:var(--gold);
+    transform:translateY(-1px);
+  }
+  .progress-track{
+    height:2px;
+    background:rgba(255,255,255,0.08);
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--gold), var(--rose));
+    transition:width .1s linear;
+  }
+
+  /* ---------- Sections ---------- */
+  main{ max-width:1180px; margin:0 auto; padding:10px 20px 40px; }
+
+  .era{
+    margin-top:56px;
+    scroll-margin-top:70px;
+    opacity:0;
+    transform:translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .era.show{ opacity:1; transform:translateY(0); }
+
+  .era-head{
+    position:relative;
+    display:flex; align-items:center; gap:18px;
+    padding:22px 26px;
+    border-radius: 28px 28px 8px 8px;
+    background: linear-gradient(160deg, var(--accent2), var(--accent1));
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    isolation:isolate;
+    overflow:hidden;
+  }
+  .era-head::before{
+    /* gothic arch cutout at the top */
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 20% -10%, rgba(255,255,255,0.25), transparent 40%),
+      radial-gradient(circle at 80% -10%, rgba(255,255,255,0.18), transparent 40%);
+    pointer-events:none;
+  }
+  .era-icon{
+    font-size:2.4rem;
+    background:rgba(255,255,255,0.16);
+    border:2px solid rgba(255,255,255,0.4);
+    width:66px; height:66px; border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    flex:none;
+    box-shadow: inset 0 0 14px rgba(0,0,0,0.25);
+  }
+  .era-title h2{ margin:0; font-size:1.5rem; color:#fff; text-shadow:0 2px 4px rgba(0,0,0,0.3); }
+  .era-title p{ margin:4px 0 0; font-size:0.92rem; color:rgba(255,255,255,0.9); }
+  .era-ref{
+    margin-left:auto;
+    font-size:0.75rem;
+    font-weight:800;
+    background:rgba(0,0,0,0.25);
+    padding:6px 12px;
+    border-radius:999px;
+    color:#fff;
+    white-space:nowrap;
+    flex:none;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap:14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-top:none;
+    border-radius: 8px 8px 22px 22px;
+    padding:20px;
+  }
+
+  .card{
+    background: linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    cursor:default;
+  }
+  .card:hover{
+    transform: translateY(-4px);
+    border-color: var(--accent1);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.35), 0 0 0 1px var(--accent1) inset;
+  }
+  .card .medal{
+    flex:none;
+    width:46px; height:46px; border-radius:12px;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.5), var(--accent1) 70%);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  }
+  .card .body h3{
+    margin:0 0 3px; font-size:1rem; color:var(--gold-soft);
+  }
+  .card .body p{
+    margin:0 0 6px; font-size:0.86rem; line-height:1.35; color:rgba(255,248,231,0.86);
+  }
+  .card .ref{
+    display:inline-block;
+    font-size:0.7rem; font-weight:800;
+    background:rgba(245,185,66,0.16);
+    color:var(--gold);
+    border:1px solid rgba(245,185,66,0.4);
+    padding:2px 8px; border-radius:999px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    text-align:center;
+    padding:40px 20px 60px;
+    color:rgba(255,248,231,0.65);
+    font-size:0.85rem;
+    line-height:1.6;
+  }
+  footer .divider{ font-size:1.4rem; color:var(--gold); display:block; margin-bottom:10px; letter-spacing:10px;}
+
+  /* focus visibility */
+  a:focus-visible, .card:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+
+  /* ---------- Responsive: tablets ---------- */
+  @media (max-width: 780px){
+    .hero{ padding:52px 16px 44px; }
+    main{ padding:8px 14px 30px; }
+    .era{ margin-top:42px; }
+    .card-grid{ grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap:12px; padding:16px; }
+  }
+
+  /* ---------- Responsive: phones ---------- */
+  @media (max-width: 560px){
+    .emblem-row{ max-width:320px; gap:6px; }
+    .emblem{ --h: 90px !important; padding-bottom:10px; }
+    .hero h1{ font-size: clamp(1.7rem, 8vw, 2.2rem); }
+    .hero p.sub{ font-size:1rem; }
+    nav{ padding:10px 12px; gap:6px; }
+    nav a{ padding:7px 12px; font-size:0.76rem; }
+
+    .era-head{
+      flex-wrap:wrap;
+      padding:18px 18px;
+      border-radius:20px 20px 8px 8px;
+    }
+    .era-icon{ width:52px; height:52px; font-size:1.9rem; border-radius:14px; }
+    .era-title h2{ font-size:1.22rem; }
+    .era-title p{ font-size:0.85rem; }
+    .era-ref{
+      margin-left:0;
+      order:3;
+      width:100%;
+    }
+
+    .card-grid{ grid-template-columns: 1fr; padding:14px; border-radius:8px 8px 18px 18px; }
+    .card{ padding:12px; }
+  }
+
+  /* ---------- Responsive: very small phones ---------- */
+  @media (max-width: 360px){
+    .emblem-row{ max-width:260px; }
+    .hero .tag{ font-size:0.7rem; padding:6px 12px; }
+  }
+
+  /* ---------- Larger desktops ---------- */
+  @media (min-width: 1400px){
+    main{ max-width:1320px; }
+    .card-grid{ grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<div class="mosaic-strip"></div>
+
+<header class="hero">
+  <div class="emblem-row" aria-hidden="true">
+    <div class="emblem">📖</div>
+    <div class="emblem">🕊️</div>
+    <div class="emblem">✨</div>
+    <div class="emblem">⭐</div>
+    <div class="emblem">📜</div>
+  </div>
+  <h1>Bible Explorers</h1>
+  <p class="sub">A field guide to the people who carry the story of the Catholic Bible — from Adam in the first garden to the vision of a new heaven and a new earth. Every figure who shaped it, including the Deuterocanon (Tobit, Judith, and the Maccabees), in order, in one place.</p>
+  <span class="tag">Genesis → Revelation · Catholic Bible</span>
+</header>
+
+<div class="navwrap">
+  <nav id="quicknav" aria-label="Jump to a chapter"></nav>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<main id="content"></main>
+
+<footer>
+  <span class="divider">📖 ✨ 🕊️</span>
+  A character guide to the people of the Catholic Bible.<br>
+  From a Genesis-to-Revelation overview of principal Bible figures.
+</footer>
+
+<script>
+const DATA = [
+  {
+    id:"beginning", title:"In the Beginning", blurb:"The very first family, and a great big flood.",
+    ref:"Genesis 1–11", c1:"var(--emerald)", c2:"#1a7a56", icon:"🌳",
+    people:[
+      {n:"Adam", i:"👨", w:"The very first man God made.", r:"Gen 1–5"},
+      {n:"Eve", i:"👩", w:"The very first woman, mother of everyone.", r:"Gen 3"},
+      {n:"Abel", i:"🐑", w:"Gave God a gift from his heart.", r:"Gen 4"},
+      {n:"Cain", i:"🌾", w:"Abel's brother, who let anger win.", r:"Gen 4"},
+      {n:"Noah", i:"🚢", w:"Built a giant ark to keep his family and the animals safe.", r:"Gen 6–9"},
+      {n:"Shem, Ham & Japheth", i:"⛵", w:"Noah's three sons — new nations began with them.", r:"Gen 10"},
+      {n:"Terah", i:"🏕️", w:"Abraham's father, on the move to a new land.", r:"Gen 11"}
+    ]
+  },
+  {
+    id:"promise", title:"The Promise Begins", blurb:"God makes a big promise to one family.",
+    ref:"Genesis 12–50", c1:"var(--gold)", c2:"#c98a1f", icon:"⭐",
+    people:[
+      {n:"Abraham", i:"⭐", w:"God promised he'd become father of a huge family.", r:"Gen 12–25"},
+      {n:"Sarah", i:"👵", w:"Abraham's wife, who laughed with joy at God's promise.", r:"Gen 11–23"},
+      {n:"Lot", i:"🏜️", w:"Abraham's nephew, rescued before a city fell.", r:"Gen 13–19"},
+      {n:"Isaac", i:"🐏", w:"The promised son, born when his parents were old.", r:"Gen 17–26"},
+      {n:"Rebekah", i:"🐫", w:"Isaac's wife and mother of two very different twins.", r:"Gen 24–27"},
+      {n:"Jacob (Israel)", i:"🪜", w:"Wrestled with an angel and got a brand-new name.", r:"Gen 25–36"},
+      {n:"Esau", i:"🏹", w:"Jacob's twin brother, a skilled hunter.", r:"Gen 25–36"},
+      {n:"Joseph", i:"🌈", w:"Sold by his brothers, but became a ruler in Egypt.", r:"Gen 37–50"},
+      {n:"The 12 Sons of Jacob", i:"🕎", w:"Became the twelve tribes of Israel.", r:"Gen 29–49"}
+    ]
+  },
+  {
+    id:"exodus", title:"Out of Egypt", blurb:"A daring rescue and a long walk to freedom.",
+    ref:"Exodus – Deuteronomy", c1:"var(--sapphire)", c2:"#213e8c", icon:"🌊",
+    people:[
+      {n:"Pharaoh", i:"👑", w:"The Egyptian king who wouldn't let God's people go.", r:"Exod 1–14"},
+      {n:"Moses", i:"🌊", w:"Led God's people out of Egypt and received God's Law.", r:"Exod 2 – Deut 34"},
+      {n:"Aaron", i:"🕯️", w:"Moses' brother and Israel's first high priest.", r:"Exod 4–40"},
+      {n:"Miriam", i:"🎶", w:"Moses' sister, who sang a song of praise after crossing the sea.", r:"Exod 15; Num 12"},
+      {n:"Joshua", i:"⚔️", w:"Moses' brave young helper, ready to lead one day.", r:"Exod 17; Deut 34"},
+      {n:"Caleb", i:"🦁", w:"Trusted God even when the giants looked scary.", r:"Num 13–14"},
+      {n:"Jethro", i:"🐑", w:"Moses' wise father-in-law who helped him lead better.", r:"Exod 18"},
+      {n:"Balaam", i:"🐴", w:"A prophet whose donkey once talked to him!", r:"Num 22–24"},
+      {n:"Korah, Dathan & Abiram", i:"🔥", w:"Rebelled against Moses' leadership.", r:"Num 16"}
+    ]
+  },
+  {
+    id:"land", title:"Into the Promised Land", blurb:"Brave leaders, mighty judges, a loyal friend.",
+    ref:"Joshua – Ruth", c1:"var(--amber)", c2:"#b56a1f", icon:"🏰",
+    people:[
+      {n:"Joshua", i:"🏰", w:"Led Israel across the Jordan into the Promised Land.", r:"Josh 1–24"},
+      {n:"Rahab", i:"🧵", w:"Bravely helped the Israelite spies in Jericho.", r:"Josh 2; 6"},
+      {n:"Othniel", i:"🛡️", w:"The very first judge God raised up.", r:"Judg 3:7–11"},
+      {n:"Ehud", i:"🗡️", w:"A clever judge who freed Israel from an oppressor.", r:"Judg 3:12–30"},
+      {n:"Deborah", i:"⚖️", w:"A wise prophetess and judge who led Israel to victory.", r:"Judg 4–5"},
+      {n:"Gideon", i:"🔥", w:"Won a huge battle with a tiny army.", r:"Judg 6–8"},
+      {n:"Jephthah", i:"🏹", w:"A judge remembered for a difficult, hasty promise.", r:"Judg 11–12"},
+      {n:"Samson", i:"💪", w:"Super-strong hero who battled the Philistines.", r:"Judg 13–16"},
+      {n:"Ruth", i:"🌾", w:"A loyal friend who became King David's great-grandmother.", r:"Ruth 1–4"},
+      {n:"Naomi", i:"🧕", w:"Ruth's wise and loving mother-in-law.", r:"Ruth 1–4"}
+    ]
+  },
+  {
+    id:"kingdom", title:"Kings and Kingdoms", blurb:"Shepherds become kings, and prophets speak boldly.",
+    ref:"1–2 Samuel · Kings · Chronicles", c1:"var(--ruby)", c2:"#a11f38", icon:"👑",
+    people:[
+      {n:"Samuel", i:"👂", w:"Heard God calling his name as a young boy.", r:"1 Sam 1–25"},
+      {n:"Saul", i:"👑", w:"Israel's very first king.", r:"1 Sam 9–31"},
+      {n:"David", i:"🪨", w:"A shepherd boy who became Israel's great king.", r:"1 Sam 16 – 2 Sam 24"},
+      {n:"Jonathan", i:"🤝", w:"Saul's son and David's most loyal friend.", r:"1 Sam 18–20"},
+      {n:"Goliath", i:"🗿", w:"The giant warrior David bravely faced.", r:"1 Sam 17"},
+      {n:"Bathsheba", i:"💍", w:"Became King David's wife and Solomon's mother.", r:"2 Sam 11–12"},
+      {n:"Nathan", i:"📢", w:"A brave prophet who told the king the truth.", r:"2 Sam 12"},
+      {n:"Solomon", i:"🏛️", w:"David's son, famous for wisdom; built the Temple.", r:"1 Kings 1–11"},
+      {n:"Rehoboam", i:"⚔️", w:"Solomon's son, whose kingdom split in two.", r:"1 Kings 12–14"},
+      {n:"Jeroboam", i:"🏔️", w:"Became the first king of the northern kingdom.", r:"1 Kings 11–14"},
+      {n:"Elijah", i:"🔥", w:"Called down fire from heaven and stood up to false gods.", r:"1 Kings 17 – 2 Kings 2"},
+      {n:"Elisha", i:"🪔", w:"Elijah's successor, known for many miracles.", r:"1 Kings 19; 2 Kings 2–13"},
+      {n:"Isaiah", i:"📜", w:"A great prophet who foretold a coming Savior.", r:"Isaiah 1–39"},
+      {n:"Jeremiah", i:"😢", w:"The 'weeping prophet' who stayed faithful in hard times.", r:"Jer 1–52"},
+      {n:"Ezekiel", i:"👁️", w:"A prophet with astonishing visions during the exile.", r:"Ezek 1–48"},
+      {n:"Daniel", i:"🦁", w:"Kept his faith strong — even in a den of lions.", r:"Dan 1–12"},
+      {n:"Cyrus", i:"🗝️", w:"A Persian king who let God's people return home.", r:"Ezra 1; Isa 44–45"}
+    ]
+  },
+  {
+    id:"restoration", title:"Coming Home", blurb:"Rebuilding the walls, the Temple, and their faith.",
+    ref:"Ezra – Malachi", c1:"var(--teal)", c2:"#177f77", icon:"🧱",
+    people:[
+      {n:"Ezra", i:"📖", w:"A priest who taught the people God's Law again.", r:"Ezra 7–10"},
+      {n:"Nehemiah", i:"🧱", w:"Rebuilt Jerusalem's broken walls.", r:"Neh 1–13"},
+      {n:"Zerubbabel", i:"🏗️", w:"Led the people home and rebuilt the Temple.", r:"Ezra 1–6"},
+      {n:"Haggai", i:"📯", w:"Encouraged everyone to finish rebuilding the Temple.", r:"Hag 1–2"},
+      {n:"Zechariah", i:"🌠", w:"Prophet with hopeful visions for the future.", r:"Zech 1–14"},
+      {n:"Malachi", i:"🕊️", w:"Closed the Old Testament with a promise of one still to come.", r:"Mal 1–4"}
+    ]
+  },
+  {
+    id:"deutero", title:"Heroes in Hard Times", blurb:"Courage and faith when things looked impossible.",
+    ref:"Tobit · Judith · Maccabees", c1:"var(--amethyst)", c2:"#5b3aa8", icon:"🛡️",
+    people:[
+      {n:"Tobit & Tobias", i:"🐟", w:"A faithful family helped by an angel in disguise.", r:"Book of Tobit"},
+      {n:"Judith", i:"🗡️", w:"A brave woman who saved her whole city.", r:"Book of Judith"},
+      {n:"Judas Maccabeus & Brothers", i:"🕎", w:"Fought courageously to protect their faith and Temple.", r:"1–2 Maccabees"}
+    ]
+  },
+  {
+    id:"gospels", title:"Jesus and His Friends", blurb:"The Savior arrives, and gathers his closest friends.",
+    ref:"The Gospels", c1:"var(--rose)", c2:"#b12d51", icon:"✝️",
+    people:[
+      {n:"Mary", i:"🌹", w:"Jesus' mother, who said 'yes' to God's plan.", r:"Luke 1–2"},
+      {n:"Joseph", i:"🔨", w:"Jesus' earthly father, a hardworking carpenter.", r:"Matt 1–2; Luke 2"},
+      {n:"Jesus Christ", i:"✝️", w:"The Son of God, who came to save everyone.", r:"The Gospels"},
+      {n:"John the Baptist", i:"💧", w:"Prepared the way and baptized Jesus.", r:"Matt 3; John 1"},
+      {n:"Peter", i:"🔑", w:"An apostle Jesus called 'the Rock.'", r:"Matt 16; Acts 1–12"},
+      {n:"James & John", i:"⛵", w:"Fisherman brothers, part of Jesus' closest circle.", r:"Mark 5, 9, 10"},
+      {n:"The Other Apostles", i:"🐟", w:"Andrew, Philip, Bartholomew, Matthew, Thomas, James (Alphaeus), Thaddaeus & Simon — twelve friends who followed Jesus everywhere.", r:"Matt 10; Mark 3"}
+    ]
+  },
+  {
+    id:"acts", title:"The Church Begins", blurb:"The good news spreads across the whole world.",
+    ref:"Acts of the Apostles", c1:"var(--emerald)", c2:"#1a7a56", icon:"🔥",
+    people:[
+      {n:"Paul", i:"⚡", w:"Once an enemy of Christians, he became a great missionary.", r:"Acts 9–28"},
+      {n:"Barnabas", i:"🤝", w:"Encouraged Paul and the very first churches.", r:"Acts 4; 9–15"},
+      {n:"Stephen", i:"✨", w:"The first Christian martyr, full of courage.", r:"Acts 6–7"},
+      {n:"Lydia", i:"💜", w:"Opened her home to the earliest believers.", r:"Acts 16"},
+      {n:"Cornelius", i:"🎖️", w:"The first Gentile welcomed warmly into the Church.", r:"Acts 10"}
+    ]
+  },
+  {
+    id:"letters", title:"Letters to the Church", blurb:"Wise words for young leaders and every believer.",
+    ref:"The Epistles", c1:"var(--sapphire)", c2:"#213e8c", icon:"✉️",
+    people:[
+      {n:"Timothy & Titus", i:"✉️", w:"Young leaders Paul trained and encouraged.", r:"1–2 Tim; Titus"},
+      {n:"Philemon & Onesimus", i:"🕊️", w:"A powerful story about forgiveness.", r:"Philemon"},
+      {n:"James & Jude", i:"🖋️", w:"Wrote short letters full of everyday wisdom.", r:"James; Jude"}
+    ]
+  },
+  {
+    id:"revelation", title:"The Amazing Ending", blurb:"A glimpse of heaven, and victory forever.",
+    ref:"Revelation", c1:"var(--gold)", c2:"#c98a1f", icon:"🌈",
+    people:[
+      {n:"John the Visionary", i:"👁️", w:"Received and wrote down amazing visions of heaven.", r:"Rev 1"},
+      {n:"Jesus, the Lamb", i:"🐑", w:"The victorious King of Kings, worshipped by all of heaven.", r:"Rev 5–22"},
+      {n:"The Seven Churches", i:"⛪", w:"Communities that received special messages from Jesus.", r:"Rev 1–3"},
+      {n:"The Redeemed", i:"🌈", w:"Every faithful person gathered joyfully around God's throne.", r:"Rev 7; 21–22"}
+    ]
+  }
+];
+
+const nav = document.getElementById('quicknav');
+const content = document.getElementById('content');
+
+DATA.forEach((era)=>{
+  // nav pill
+  const a = document.createElement('a');
+  a.href = '#'+era.id;
+  a.textContent = era.icon+' '+era.title;
+  nav.appendChild(a);
+
+  // section
+  const section = document.createElement('section');
+  section.className = 'era';
+  section.id = era.id;
+  section.style.setProperty('--accent1', era.c1);
+  section.style.setProperty('--accent2', era.c2);
+
+  const cardsHTML = era.people.map(p => `
+    <div class="card" tabindex="0">
+      <div class="medal">${p.i}</div>
+      <div class="body">
+        <h3>${p.n}</h3>
+        <p>${p.w}</p>
+        <span class="ref">${p.r}</span>
+      </div>
+    </div>
+  `).join('');
+
+  section.innerHTML = `
+    <div class="era-head">
+      <div class="era-icon">${era.icon}</div>
+      <div class="era-title">
+        <h2>${era.title}</h2>
+        <p>${era.blurb}</p>
+      </div>
+      <div class="era-ref">${era.ref}</div>
+    </div>
+    <div class="card-grid">${cardsHTML}</div>
+  `;
+  content.appendChild(section);
+});
+
+// reading progress bar
+const progressFill = document.getElementById('progressFill');
+function updateProgress(){
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  if(progressFill) progressFill.style.width = Math.min(100, Math.max(0, pct)) + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive:true });
+window.addEventListener('resize', updateProgress);
+updateProgress();
+
+// scroll reveal
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target); }
+  });
+},{threshold:0.08});
+document.querySelectorAll('.era').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
