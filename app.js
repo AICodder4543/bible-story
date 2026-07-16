@@ -157,6 +157,41 @@ function updateBgIcon(era) {
 prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
 nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
 
+// ---------- Full-screen swipe navigation (road view only) ----------
+// Lets a swipe anywhere on the main road screen move between eras, not just
+// the narrow road strip or the Prev/Next buttons.
+(() => {
+  const SWIPE_MIN_DISTANCE = 50;
+  const SWIPE_MAX_OFF_AXIS = 70;
+  let startX = 0;
+  let startY = 0;
+  let tracking = false;
+
+  function popupOpen() {
+    return detailPanel.classList.contains('show') || characterModal.classList.contains('show');
+  }
+
+  document.addEventListener('pointerdown', (e) => {
+    if (popupOpen() || e.pointerType === 'mouse' && e.button !== 0) return;
+    tracking = true;
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+
+  document.addEventListener('pointerup', (e) => {
+    if (!tracking) return;
+    tracking = false;
+    if (popupOpen()) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (Math.abs(dx) < SWIPE_MIN_DISTANCE || Math.abs(dy) > SWIPE_MAX_OFF_AXIS) return;
+    if (dx < 0) goTo(currentIndex + 1);
+    else goTo(currentIndex - 1);
+  });
+
+  document.addEventListener('pointercancel', () => { tracking = false; });
+})();
+
 document.addEventListener('keydown', (e) => {
   if (characterModal.classList.contains('show')) {
     if (e.key === 'Escape') closeCharacter();
