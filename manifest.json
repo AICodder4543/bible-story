@@ -1,8 +1,10 @@
 {
+  "id": "/bible-story/home.html",
   "name": "The Bible Story",
   "short_name": "Bible Story",
   "description": "A friendly place to explore Scripture, made for catechism class.",
   "start_url": "home.html",
+  "scope": "/bible-story/",
   "display": "standalone",
   "background_color": "#fdf9f1",
   "theme_color": "#1a6faa",
