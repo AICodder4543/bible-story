@@ -16,7 +16,14 @@ const detailDates = document.getElementById('detailDates');
 const detailSummary = document.getElementById('detailSummary');
 const detailBanner = document.getElementById('detailBanner');
 const imageCredit = document.getElementById('imageCredit');
-const eventCards = document.getElementById('eventCards');
+const detailPages = document.getElementById('detailPages');
+const detailPageNav = document.getElementById('detailPageNav');
+const detailPagePrev = document.getElementById('detailPagePrev');
+const detailPageNext = document.getElementById('detailPageNext');
+const detailPageDots = document.getElementById('detailPageDots');
+const EVENTS_PER_PAGE = 4;
+let detailPageIndex = 0;
+let detailPageCount = 1;
 
 const progressFill = document.getElementById('progressFill');
 const exploredCountEl = document.getElementById('exploredCount');
@@ -220,60 +227,139 @@ function openEra(i) {
   detailBanner.alt = era.imageCredit;
   imageCredit.textContent = `🎨 ${era.imageCredit}`;
 
-  eventCards.innerHTML = era.events.map((ev, ci) => {
-    const seen = visitedEvents.has(eventKey(i, ci));
-    const deeper = ev.catholicTeaching ? `
-      <details class="ec-deeper">
-        <summary class="ec-deeper-toggle">
-          <span class="ec-deeper-label">📚 Go deeper: Catholic teaching</span>
-          <span class="ec-deeper-arrow">▸</span>
-        </summary>
-        <div class="ec-deeper-content">
-          ${ev.catholicTeaching.map((pt, pi) => `
-            <div class="ec-deeper-point" style="--point-delay:${pi * 0.1}s">
-              <div class="ec-deeper-heading">${pt.heading}</div>
-              <div class="ec-deeper-text">${pt.text}</div>
-            </div>
-          `).join('')}
-        </div>
-      </details>
-    ` : '';
+  // Remove any previously-built event-card pages, keeping only the intro page.
+  [...detailPages.querySelectorAll('.detail-page-events')].forEach((p) => p.remove());
 
-    return `
-    <div class="event-card${seen ? ' visited' : ''}" style="--era-color:${era.color}; --card-delay:${ci * 0.08}s" data-era="${i}" data-event="${ci}">
-      <div class="ec-icon">${ev.icon}</div>
-      <div class="ec-title">${ev.title}</div>
-      <div class="ec-text">${ev.text}</div>
-      <div class="ec-tap">${seen ? `✓ You met ${ev.character.name}!` : `✨ Meet ${ev.character.name}`}</div>
-      ${deeper}
-    </div>
-  `;
-  }).join('');
+  const chunks = [];
+  for (let ci = 0; ci < era.events.length; ci += EVENTS_PER_PAGE) {
+    chunks.push(era.events.slice(ci, ci + EVENTS_PER_PAGE));
+  }
 
-  [...eventCards.children].forEach((card) => {
-    card.addEventListener('click', () => {
-      const eraIdx = Number(card.dataset.era);
-      const evIdx = Number(card.dataset.event);
-      const era2 = ERAS[eraIdx];
-      const ev = era2.events[evIdx];
+  chunks.forEach((chunk, chunkIdx) => {
+    const page = document.createElement('div');
+    page.className = 'detail-page detail-page-events';
+    page.dataset.page = String(chunkIdx + 1);
 
-      visitedEvents.add(eventKey(eraIdx, evIdx));
-      card.classList.add('visited');
-      card.querySelector('.ec-tap').textContent = `✓ You met ${ev.character.name}!`;
-      checkEraComplete(eraIdx);
+    page.innerHTML = `
+      <h3 class="detail-page-heading">${chunks.length > 1 ? `✨ People to Meet (${chunkIdx + 1}/${chunks.length})` : '✨ People to Meet'}</h3>
+      <div class="event-cards">
+        ${chunk.map((ev, localCi) => {
+          const ci = chunkIdx * EVENTS_PER_PAGE + localCi;
+          const seen = visitedEvents.has(eventKey(i, ci));
+          const deeper = ev.catholicTeaching ? `
+            <details class="ec-deeper">
+              <summary class="ec-deeper-toggle">
+                <span class="ec-deeper-label">📚 Go deeper: Catholic teaching</span>
+                <span class="ec-deeper-arrow">▸</span>
+              </summary>
+              <div class="ec-deeper-content">
+                ${ev.catholicTeaching.map((pt, pi) => `
+                  <div class="ec-deeper-point" style="--point-delay:${pi * 0.1}s">
+                    <div class="ec-deeper-heading">${pt.heading}</div>
+                    <div class="ec-deeper-text">${pt.text}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </details>
+          ` : '';
 
-      openCharacter(era2, ev.character);
+          return `
+          <div class="event-card${seen ? ' visited' : ''}" style="--era-color:${era.color}; --card-delay:${localCi * 0.08}s" data-era="${i}" data-event="${ci}">
+            <div class="ec-icon">${ev.icon}</div>
+            <div class="ec-title">${ev.title}</div>
+            <div class="ec-text">${ev.text}</div>
+            <div class="ec-tap">${seen ? `✓ You met ${ev.character.name}!` : `✨ Meet ${ev.character.name}`}</div>
+            ${deeper}
+          </div>
+        `;
+        }).join('')}
+      </div>
+    `;
+
+    detailPages.appendChild(page);
+
+    [...page.querySelectorAll('.event-card')].forEach((card) => {
+      card.addEventListener('click', () => {
+        const eraIdx = Number(card.dataset.era);
+        const evIdx = Number(card.dataset.event);
+        const era2 = ERAS[eraIdx];
+        const ev = era2.events[evIdx];
+
+        visitedEvents.add(eventKey(eraIdx, evIdx));
+        card.classList.add('visited');
+        card.querySelector('.ec-tap').textContent = `✓ You met ${ev.character.name}!`;
+        checkEraComplete(eraIdx);
+
+        openCharacter(era2, ev.character);
+      });
+
+      const deeperEl = card.querySelector('.ec-deeper');
+      if (deeperEl) {
+        deeperEl.addEventListener('click', (e) => e.stopPropagation());
+      }
     });
-
-    const deeperEl = card.querySelector('.ec-deeper');
-    if (deeperEl) {
-      deeperEl.addEventListener('click', (e) => e.stopPropagation());
-    }
   });
+
+  detailPageCount = 1 + chunks.length;
+  buildDetailPageDots();
+  goToDetailPage(0);
 
   overlay.classList.add('show');
   detailPanel.classList.add('show');
 }
+
+// ---------- Detail-panel page navigation ----------
+function buildDetailPageDots() {
+  detailPageDots.innerHTML = '';
+  for (let p = 0; p < detailPageCount; p++) {
+    const dot = document.createElement('div');
+    dot.className = 'detail-page-dot';
+    dot.addEventListener('click', () => goToDetailPage(p));
+    detailPageDots.appendChild(dot);
+  }
+  detailPageNav.classList.toggle('hidden', detailPageCount <= 1);
+}
+
+function goToDetailPage(p) {
+  detailPageIndex = Math.max(0, Math.min(detailPageCount - 1, p));
+  [...detailPages.children].forEach((page, idx) => {
+    page.classList.toggle('active', idx === detailPageIndex);
+  });
+  [...detailPageDots.children].forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === detailPageIndex);
+  });
+  detailPagePrev.disabled = detailPageIndex === 0;
+  detailPageNext.disabled = detailPageIndex === detailPageCount - 1;
+  detailPages.scrollTop = 0;
+}
+
+detailPagePrev.addEventListener('click', () => goToDetailPage(detailPageIndex - 1));
+detailPageNext.addEventListener('click', () => goToDetailPage(detailPageIndex + 1));
+
+// Swipe left/right inside the open detail panel to change pages.
+(() => {
+  const SWIPE_MIN_DISTANCE = 45;
+  const SWIPE_MAX_OFF_AXIS = 70;
+  let startX = 0;
+  let startY = 0;
+  let tracking = false;
+
+  detailPages.addEventListener('pointerdown', (e) => {
+    tracking = true;
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+  detailPages.addEventListener('pointerup', (e) => {
+    if (!tracking) return;
+    tracking = false;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (Math.abs(dx) < SWIPE_MIN_DISTANCE || Math.abs(dy) > SWIPE_MAX_OFF_AXIS) return;
+    if (dx < 0) goToDetailPage(detailPageIndex + 1);
+    else goToDetailPage(detailPageIndex - 1);
+  });
+  detailPages.addEventListener('pointercancel', () => { tracking = false; });
+})();
 
 function closeDetail() {
   overlay.classList.remove('show');
