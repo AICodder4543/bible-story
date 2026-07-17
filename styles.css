@@ -123,7 +123,7 @@ h1, h2 { font-family: 'Baloo 2', sans-serif; margin: 0; }
 }
 
 .progress-wrap { min-width: 220px; }
-.progress-label { font-size: 0.85rem; font-weight: 700; color: #555; margin-bottom: 4px; text-align: right; }
+.progress-label { font-size: 0.95rem; font-weight: 700; color: #555; margin-bottom: 4px; text-align: right; }
 .progress-bar {
   width: 220px;
   max-width: 40vw;
@@ -251,7 +251,7 @@ main {
 }
 
 .station-dates {
-  font-size: 0.75rem;
+  font-size: 0.88rem;
   color: #777;
   font-weight: 600;
   margin-top: 2px;
@@ -376,7 +376,7 @@ main {
   pointer-events: none;
 }
 .image-credit {
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   color: #999;
   text-align: right;
   margin: 6px 0 0;
@@ -401,8 +401,8 @@ main {
   border: 5px solid var(--era-color, #999);
   flex: 0 0 auto;
 }
-.detail-header h2 { font-size: 1.5rem; color: #2c3e50; }
-.detail-dates { font-weight: 700; color: #888; font-size: 0.9rem; margin-top: 2px; }
+.detail-header h2 { font-size: 1.55rem; color: #2c3e50; }
+.detail-dates { font-weight: 700; color: #888; font-size: 1rem; margin-top: 2px; }
 
 .detail-summary {
   font-size: 1.05rem;
@@ -435,9 +435,9 @@ main {
   box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
 .event-card .ec-icon { font-size: 1.4rem; margin-bottom: 4px; }
-.event-card .ec-title { font-weight: 700; font-size: 0.98rem; color: #2c3e50; margin-bottom: 4px; }
-.event-card .ec-text { font-size: 0.9rem; line-height: 1.4; color: #555; }
-.event-card .ec-tap { font-size: 0.78rem; font-weight: 700; color: var(--era-color, #999); margin-top: 8px; }
+.event-card .ec-title { font-weight: 700; font-size: 1.05rem; color: #2c3e50; margin-bottom: 4px; }
+.event-card .ec-text { font-size: 1rem; line-height: 1.45; color: #555; }
+.event-card .ec-tap { font-size: 0.9rem; font-weight: 700; color: var(--era-color, #999); margin-top: 8px; }
 
 @keyframes deeperPointIn {
   from { opacity: 0; transform: translateY(-8px); }
@@ -454,7 +454,7 @@ main {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: #7a6a4f;
   cursor: pointer;
@@ -484,8 +484,8 @@ main {
   animation-delay: var(--point-delay, 0s);
 }
 .ec-deeper-point + .ec-deeper-point { margin-top: 10px; }
-.ec-deeper-heading { font-size: 0.82rem; font-weight: 700; color: #6b5637; margin-bottom: 2px; }
-.ec-deeper-text { font-size: 0.85rem; line-height: 1.45; color: #5a5346; }
+.ec-deeper-heading { font-size: 0.95rem; font-weight: 700; color: #6b5637; margin-bottom: 2px; }
+.ec-deeper-text { font-size: 0.98rem; line-height: 1.5; color: #5a5346; }
 
 .event-card.visited { background: #fbfffa; }
 .event-card.visited::after {
@@ -508,7 +508,7 @@ main {
 }
 
 .tap-hint {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #888;
   margin: -8px 0 14px;
@@ -561,8 +561,8 @@ main {
 }
 
 .character-story {
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 1.08rem;
+  line-height: 1.6;
   color: #444;
   text-align: left;
 }
@@ -577,8 +577,8 @@ main {
   border-left: 4px solid #c9a86a;
   animation: deeperGlow 0.6s ease-out;
 }
-.char-deeper-bio { font-size: 0.9rem; line-height: 1.6; color: #4a4438; margin: 0 0 10px; }
-.char-deeper-refs { font-size: 0.78rem; line-height: 1.5; color: #8a7d5e; margin: 0; }
+.char-deeper-bio { font-size: 1rem; line-height: 1.65; color: #4a4438; margin: 0 0 10px; }
+.char-deeper-refs { font-size: 0.9rem; line-height: 1.5; color: #8a7d5e; margin: 0; }
 .char-deeper-refs strong { color: #6b5637; }
 
 @media (max-width: 640px) {
@@ -588,4 +588,25 @@ main {
   .nav-controls { gap: 10px; padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px)); }
   .nav-btn { padding: 10px 14px; font-size: 0.9rem; }
   .dots { gap: 6px; }
+
+  /* Popups become full-screen sheets on mobile instead of small floating
+     cards, so there's room to comfortably read the longer bios. */
+  .detail-panel, .character-modal {
+    left: 0;
+    top: 0;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    padding: 22px 20px calc(28px + env(safe-area-inset-bottom, 0px));
+    transform: translateY(100%);
+  }
+  .detail-panel.show, .character-modal.show {
+    transform: translateY(0);
+  }
+  .detail-banner-wrap { margin: -22px -20px 0; }
+
+  .detail-summary, .character-story, .char-deeper-bio, .ec-deeper-text { font-size: 1.05rem; }
 }
