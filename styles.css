@@ -315,22 +315,26 @@ main {
 
 .detail-panel {
   position: fixed;
-  inset: clamp(18px, 5vh, 46px) clamp(14px, 5vw, 56px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -46%) rotateY(-90deg);
+  backface-visibility: hidden;
+  width: min(90vw, 720px);
+  max-height: 85vh;
   overflow-y: auto;
   background: var(--paper);
-  border-radius: 26px;
-  padding: 26px 28px 20px;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+  border-radius: 20px;
+  padding: 28px 30px 34px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
   z-index: 40;
   opacity: 0;
   pointer-events: none;
-  transform: scale(0.93) translateY(1.5%);
-  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
 .detail-panel.show {
   opacity: 1;
   pointer-events: auto;
-  transform: scale(1) translateY(0);
+  transform: translate(-50%, -50%) rotateY(0deg);
 }
 
 .close-btn {
@@ -351,10 +355,10 @@ main {
 
 .detail-banner-wrap {
   position: relative;
-  margin: -26px -28px 0;
-  height: min(260px, 32vh);
+  margin: -28px -30px 0;
+  height: 190px;
   overflow: hidden;
-  border-radius: 26px 26px 0 0;
+  border-radius: 20px 20px 0 0;
 }
 .detail-banner {
   width: 100%;
@@ -512,36 +516,40 @@ main {
 
 .character-modal {
   position: fixed;
-  inset: clamp(18px, 5vh, 46px) clamp(14px, 5vw, 56px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.85) rotateY(90deg);
+  backface-visibility: hidden;
+  width: min(88vw, 440px);
+  max-height: 85vh;
   overflow-y: auto;
   background: var(--paper);
-  border-radius: 26px;
-  padding: 34px 28px 28px;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+  border-radius: 20px;
+  padding: 32px 28px 30px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   z-index: 50;
   text-align: center;
   opacity: 0;
   pointer-events: none;
-  transform: scale(0.93) translateY(1.5%);
-  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
 .character-modal.show {
   opacity: 1;
   pointer-events: auto;
-  transform: scale(1) translateY(0);
+  transform: translate(-50%, -50%) scale(1) rotateY(0deg);
 }
 
 .character-avatar {
-  width: 130px;
-  height: 130px;
-  margin: 0 auto 18px;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 14px;
   border-radius: 50%;
   background: #fff;
   border: 6px solid var(--era-color, #999);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.6rem;
+  font-size: 3.2rem;
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
   animation: popIn 0.4s ease;
 }
@@ -580,10 +588,4 @@ main {
   .nav-controls { gap: 10px; padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px)); }
   .nav-btn { padding: 10px 14px; font-size: 0.9rem; }
   .dots { gap: 6px; }
-
-  /* Popups leave a margin on every side (see inset on .detail-panel and
-     .character-modal above); mobile just gets tighter inner padding. */
-  .detail-panel { padding-left: 20px; padding-right: 20px; }
-  .character-modal { padding-left: 22px; padding-right: 22px; }
-  .detail-banner-wrap { margin-left: -20px; margin-right: -20px; border-radius: 20px 20px 0 0; }
 }
