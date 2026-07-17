@@ -284,11 +284,28 @@ closeBtn.addEventListener('click', closeDetail);
 overlay.addEventListener('click', closeDetail);
 
 // ---------- Character modal ----------
+const charFullBioWrap = document.getElementById('charFullBioWrap');
+
 function openCharacter(era, character) {
   charAvatar.innerHTML = iconHTML(character.icon);
   charAvatar.style.setProperty('--era-color', era.color);
   charName.textContent = character.name;
   charStory.textContent = character.story;
+
+  charFullBioWrap.innerHTML = character.fullBio ? `
+    <details class="char-deeper">
+      <summary class="ec-deeper-toggle">
+        <span class="ec-deeper-label">📖 Meet ${character.name}: The Full Story (Catholic Resources)</span>
+        <span class="ec-deeper-arrow">▸</span>
+      </summary>
+      <div class="char-deeper-content">
+        <p class="char-deeper-bio">${character.fullBio}</p>
+        ${character.references ? `<p class="char-deeper-refs"><strong>References:</strong> ${character.references}</p>` : ''}
+      </div>
+    </details>
+  ` : '';
+  const deeperEl = charFullBioWrap.querySelector('.char-deeper');
+  if (deeperEl) deeperEl.addEventListener('click', (e) => e.stopPropagation());
 
   charOverlay.classList.add('show');
   characterModal.classList.add('show');
