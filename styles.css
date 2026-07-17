@@ -315,26 +315,27 @@ main {
 
 .detail-panel {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -46%) rotateY(-90deg);
-  backface-visibility: hidden;
-  width: min(90vw, 720px);
-  max-height: 85vh;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   overflow-y: auto;
   background: var(--paper);
-  border-radius: 20px;
-  padding: 28px 30px 34px;
+  border-radius: 0;
+  padding: 28px 30px calc(34px + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 20px 60px rgba(0,0,0,0.35);
   z-index: 40;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.22s ease, transform 0.22s ease;
+  transform: translateY(3%);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 .detail-panel.show {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, -50%) rotateY(0deg);
+  transform: translateY(0);
 }
 
 .close-btn {
@@ -356,9 +357,9 @@ main {
 .detail-banner-wrap {
   position: relative;
   margin: -28px -30px 0;
-  height: 190px;
+  height: min(260px, 32vh);
   overflow: hidden;
-  border-radius: 20px 20px 0 0;
+  border-radius: 0;
 }
 .detail-banner {
   width: 100%;
@@ -401,7 +402,7 @@ main {
   border: 5px solid var(--era-color, #999);
   flex: 0 0 auto;
 }
-.detail-header h2 { font-size: 1.55rem; color: #2c3e50; }
+.detail-header h2 { font-size: 1.75rem; color: #2c3e50; }
 .detail-dates { font-weight: 700; color: #888; font-size: 1rem; margin-top: 2px; }
 
 .detail-summary {
@@ -516,48 +517,49 @@ main {
 
 .character-modal {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0.85) rotateY(90deg);
-  backface-visibility: hidden;
-  width: min(88vw, 440px);
-  max-height: 85vh;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   overflow-y: auto;
   background: var(--paper);
-  border-radius: 20px;
-  padding: 32px 28px 30px;
+  border-radius: 0;
+  padding: 40px 30px calc(36px + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   z-index: 50;
   text-align: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.22s ease, transform 0.22s ease;
+  transform: translateY(3%);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 .character-modal.show {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+  transform: translateY(0);
 }
 
 .character-avatar {
-  width: 110px;
-  height: 110px;
-  margin: 0 auto 14px;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 18px;
   border-radius: 50%;
   background: #fff;
   border: 6px solid var(--era-color, #999);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.2rem;
+  font-size: 3.6rem;
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
   animation: popIn 0.4s ease;
 }
 
 .character-name {
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   color: #2c3e50;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .character-story {
@@ -589,24 +591,10 @@ main {
   .nav-btn { padding: 10px 14px; font-size: 0.9rem; }
   .dots { gap: 6px; }
 
-  /* Popups become full-screen sheets on mobile instead of small floating
-     cards, so there's room to comfortably read the longer bios. */
-  .detail-panel, .character-modal {
-    left: 0;
-    top: 0;
-    width: 100vw;
-    max-width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    max-height: 100dvh;
-    border-radius: 0;
-    padding: 22px 20px calc(28px + env(safe-area-inset-bottom, 0px));
-    transform: translateY(100%);
-  }
-  .detail-panel.show, .character-modal.show {
-    transform: translateY(0);
-  }
-  .detail-banner-wrap { margin: -22px -20px 0; }
+  /* Popups are full-screen on every device (see .detail-panel and
+     .character-modal above); mobile just gets tighter side padding. */
+  .detail-panel, .character-modal { padding-left: 20px; padding-right: 20px; }
+  .detail-banner-wrap { margin-left: -20px; margin-right: -20px; }
 
   .detail-summary, .character-story, .char-deeper-bio, .ec-deeper-text { font-size: 1.05rem; }
 }
