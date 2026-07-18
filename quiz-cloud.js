@@ -4,7 +4,7 @@
 // steps. Relies on loadProgress/saveProgress/bestStreak/renderTodayCard/
 // renderStreak/renderArchive from quiz.js, which loads before this script.
 
-const FIREBASE_CONFIGURED = typeof FIREBASE_CONFIG !== 'undefined' && FIREBASE_CONFIG.apiKey !== 'YOUR_API_KEY';
+const FIREBASE_CONFIGURED = typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY';
 
 let currentUser = null;
 let db = null;
@@ -27,7 +27,7 @@ async function initFirebase() {
   await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js');
   await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js');
 
-  firebase.initializeApp(FIREBASE_CONFIG);
+  firebase.initializeApp(firebaseConfig);
   auth = firebase.auth();
   db = firebase.firestore();
 

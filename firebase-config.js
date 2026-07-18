@@ -4,7 +4,8 @@
 // How to get them (free, ~5 minutes):
 //   1. Go to https://console.firebase.google.com and create a project.
 //   2. In the project, click the "</>" (web) icon to add a web app, then
-//      copy the firebaseConfig object it shows you into FIREBASE_CONFIG below.
+//      copy the firebaseConfig object it shows you in below, replacing the
+//      placeholder values.
 //   3. In the Firebase console: Build → Authentication → Sign-in method →
 //      enable "Google".
 //   4. In the Firebase console: Build → Firestore Database → Create database
