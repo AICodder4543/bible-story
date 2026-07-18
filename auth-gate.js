@@ -12,10 +12,10 @@ if (typeof FIREBASE_CONFIGURED !== 'undefined' && FIREBASE_CONFIGURED) {
       position: fixed; inset: 0; z-index: 9999;
       background: linear-gradient(180deg, #eaf4ff 0%, #fdf9f1 60%);
       display: flex; align-items: center; justify-content: center;
-      opacity: 1; transition: opacity 0.3s ease;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
       font-family: 'Nunito', sans-serif;
     }
-    #authGateOverlay.hide { opacity: 0; pointer-events: none; }
+    #authGateOverlay.show { opacity: 1; pointer-events: auto; }
     #authGateOverlay .gate-card {
       text-align: center;
       max-width: 380px;
@@ -89,7 +89,9 @@ if (typeof FIREBASE_CONFIGURED !== 'undefined' && FIREBASE_CONFIGURED) {
   window.authReady.push((user) => {
     mountOverlay();
     if (user) {
-      overlay.classList.add('hide');
+      // Already signed in — never show the gate at all, just let the page's
+      // own loading/splash screen (if any) carry on as normal.
+      overlay.classList.remove('show');
       const justSignedIn = sessionStorage.getItem(JUST_SIGNED_IN_FLAG);
       if (justSignedIn) {
         sessionStorage.removeItem(JUST_SIGNED_IN_FLAG);
@@ -98,7 +100,7 @@ if (typeof FIREBASE_CONFIGURED !== 'undefined' && FIREBASE_CONFIGURED) {
         }
       }
     } else {
-      overlay.classList.remove('hide');
+      overlay.classList.add('show');
     }
   });
 }
