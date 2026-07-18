@@ -318,12 +318,9 @@ main {
 
 .detail-panel {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -46%) rotateY(-90deg);
+  inset: clamp(20px, 6vh, 96px) clamp(20px, 6vw, 96px);
+  transform: rotateY(-90deg);
   backface-visibility: hidden;
-  width: min(96vw, 980px);
-  max-height: 94dvh;
   overflow-y: auto;
   background: var(--paper);
   border-radius: 22px;
@@ -337,7 +334,7 @@ main {
 .detail-panel.show {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, -50%) rotateY(0deg);
+  transform: rotateY(0deg);
 }
 
 .close-btn {
