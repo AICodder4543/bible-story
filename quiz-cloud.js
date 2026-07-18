@@ -37,6 +37,13 @@ async function initFirebase() {
     if (user) syncFromCloudOnSignIn();
   });
 
+  // Popups get blocked by some browsers (and often inside the packaged
+  // Android app's WebView), so fall back to a full-page redirect flow —
+  // this call resolves the result once the user is redirected back here.
+  auth.getRedirectResult().catch((err) => {
+    if (err && err.code !== 'auth/no-such-provider') console.warn('Redirect sign-in failed:', err);
+  });
+
   window.onQuizProgressChange = () => pushToCloud();
 }
 
@@ -65,6 +72,11 @@ function renderAuthUI() {
 function signIn() {
   const provider = new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider).catch((err) => {
+    const popupIssues = ['auth/popup-blocked', 'auth/operation-not-supported-in-this-environment'];
+    if (popupIssues.includes(err.code)) {
+      auth.signInWithRedirect(provider);
+      return;
+    }
     alert('Sign-in failed: ' + err.message);
   });
 }
