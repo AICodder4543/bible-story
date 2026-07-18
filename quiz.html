@@ -82,6 +82,46 @@
   .streak-pill .num { color: #d3720c; font-size: 1.1rem; }
   .streak-pill .lab { font-size: 0.72rem; color: #999; font-weight: 600; }
 
+  .top-bar-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+  .auth-btn {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .auth-btn-google {
+    padding: 9px 18px 9px 14px;
+    background: #fff;
+    color: #444;
+    border: 1.5px solid #dadce0;
+  }
+  .auth-btn-google:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .auth-btn-ghost {
+    padding: 6px 14px;
+    background: transparent;
+    color: #888;
+    border: 1.5px solid #ddd;
+    font-size: 0.78rem;
+  }
+  .auth-btn-ghost:hover { border-color: #999; color: #555; }
+  .auth-signed-in {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1.5px solid var(--line, #eee);
+    border-radius: 30px;
+    padding: 5px 8px 5px 5px;
+  }
+  .auth-avatar { width: 26px; height: 26px; border-radius: 50%; background: #eee; }
+  .auth-name { font-size: 0.85rem; font-weight: 700; color: #444; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
   main { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
 
   .hero-text { text-align: center; margin-bottom: 24px; }
@@ -252,10 +292,13 @@
     <h1>🧠 Daily Catholic Quiz</h1>
     <a class="back-link" href="home.html">← Back to Home</a>
   </div>
-  <div class="streak-pill">
-    <span class="flame">🔥</span>
-    <span class="num" id="streakNum">0</span>
-    <span class="lab">day streak</span>
+  <div class="top-bar-right">
+    <div class="streak-pill">
+      <span class="flame">🔥</span>
+      <span class="num" id="streakNum">0</span>
+      <span class="lab">day streak</span>
+    </div>
+    <div id="authWrap"></div>
   </div>
 </header>
 
@@ -285,5 +328,7 @@
 
 <script src="quiz-data.js"></script>
 <script src="quiz.js"></script>
+<script src="firebase-config.js"></script>
+<script src="quiz-cloud.js"></script>
 </body>
 </html>

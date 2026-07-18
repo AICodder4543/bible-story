@@ -54,12 +54,14 @@ function loadProgress() {
 }
 function saveProgress(progress) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  if (window.onQuizProgressChange) window.onQuizProgressChange(progress);
 }
 function recordResult(dateStr, answers, score, total) {
   const progress = loadProgress();
   progress[dateStr] = { answers, score, total, completedAt: new Date().toISOString() };
-  saveProgress(progress);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
   updateBestStreak();
+  saveProgress(progress);
 }
 
 // ---------- Streak calculation ----------
