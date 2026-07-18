@@ -7,7 +7,7 @@
 // update app-version.json's latestVersionCode/latestVersionName/apkUrl to
 // point at the newly published release — otherwise this banner won't fire
 // for anyone, or will fire for everyone including people already updated.
-const CURRENT_APP_VERSION_CODE = 4;
+const CURRENT_APP_VERSION_CODE = 5;
 
 (function () {
   const isPackagedApp = document.referrer.startsWith('android-app://');
