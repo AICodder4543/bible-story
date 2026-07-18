@@ -37,7 +37,6 @@ let currentIndex = 0;
 const visited = new Set();
 const visitedEvents = new Set();
 const eventKey = (eraIdx, evIdx) => `${eraIdx}-${evIdx}`;
-let readObserver = null;
 
 // Renders a glossy 3D-style emoji image when available, else the plain emoji.
 function iconHTML(emoji) {
@@ -293,29 +292,6 @@ function openEra(i) {
       deeperEl.addEventListener('click', (e) => e.stopPropagation());
     }
   });
-
-  // Mark a card "read" automatically once it's been on screen for a moment —
-  // the site itself tracks reading, no tap required. Tapping still opens the
-  // character's full story on top of that.
-  if (readObserver) readObserver.disconnect();
-  readObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const card = entry.target;
-      const eraIdx = Number(card.dataset.era);
-      const evIdx = Number(card.dataset.event);
-      const ev = ERAS[eraIdx].events[evIdx];
-      const key = eventKey(eraIdx, evIdx);
-      if (!visitedEvents.has(key)) {
-        visitedEvents.add(key);
-        card.classList.add('visited');
-        card.querySelector('.ec-tap').textContent = `✓ Read`;
-        checkEraComplete(eraIdx);
-      }
-      readObserver.unobserve(card);
-    });
-  }, { root: detailPanel, threshold: 0.6 });
-  [...eventCards.children].forEach((card) => readObserver.observe(card));
 
   overlay.classList.add('show');
   detailPanel.classList.add('show');
