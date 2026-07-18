@@ -139,6 +139,13 @@ const ERAS = [
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/The_Crossing_of_The_Red_Sea.jpg?width=600",
     imageCredit: "The Crossing of the Red Sea — Nicolas Poussin, 1634",
     summary: "God heard His people crying out in slavery and sent a hero named Moses to set them free! He led them out of Egypt, through the sea, and gave them His law at a mountain.",
+    chronology: [
+      { date: "17th–13th centuries BC", text: "The Hebrews become slaves in Egypt" },
+      { date: "17th–13th centuries BC", text: "Moses is born" },
+      { date: "17th–13th centuries BC", text: "God appears to Moses" },
+      { date: "17th–13th centuries BC", text: "The Exodus" },
+      { date: "17th–13th centuries BC", text: "The Law is given to Moses on Mt. Sinai" }
+    ],
     events: [
       {
         icon: "🕊️",
@@ -218,6 +225,19 @@ const ERAS = [
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Felix-Joseph_Barrias_-_Anointing_of_David_by_Samuel.jpg?width=600",
     imageCredit: "The Anointing of David by Samuel — Félix-Joseph Barrias, 1842",
     summary: "Israel finally entered the Promised Land! But without a king, they kept forgetting God — until God gave them David, a shepherd boy who became their greatest king.",
+    chronology: [
+      { date: "12th–13th centuries BC", text: "Israel begins the conquest of Canaan" },
+      { date: "12th–13th centuries BC", text: "Joshua dies" },
+      { date: "12th–13th centuries BC", text: "The judges of Israel" },
+      { date: "12th–13th centuries BC", text: "The story of Ruth" },
+      { date: "ca. 1100 BC", text: "The activity of Samuel" },
+      { date: "ca. 1050 BC", text: "Saul anointed the first King of Israel" },
+      { date: "ca. 1010 BC", text: "David becomes the King of Israel" },
+      { date: "ca. 1000 BC", text: "Jerusalem becomes the capital of Israel" },
+      { date: "ca. 970 BC", text: "Solomon becomes King of Israel" },
+      { date: "ca. 930 BC", text: "Solomon dies" },
+      { date: "931 BC", text: "The kingdom is divided: Rehoboam becomes king of Judah (931–911 BC); Jeroboam becomes king of Israel (931–910 BC)" }
+    ],
     events: [
       {
         icon: "🏞️",
@@ -298,6 +318,20 @@ const ERAS = [
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Rembrandt_-_Jeremiah_lamenting.jpg?width=600",
     imageCredit: "Jeremiah Lamenting the Destruction of Jerusalem — Rembrandt, 1630",
     summary: "Israel and Judah kept ignoring God's warnings, so they were conquered and taken far from home. But God never forgot His people — He brought them back and kept every promise.",
+    chronology: [
+      { date: "870–780 BC", text: "The prophetic ministry of Elijah and Elisha" },
+      { date: "770–596 BC", text: "Prophets before the deportation: Amos, Hosea, Isaiah, Micah, etc." },
+      { date: "722 BC", text: "The Assyrians conquer Israel and take ten tribes into captivity" },
+      { date: "597–596 BC", text: "The first deportation to Babylon; Ezekiel predicts the destruction of Jerusalem" },
+      { date: "587–586 BC", text: "The second deportation to Babylon; the destruction of Jerusalem" },
+      { date: "538 BC", text: "The decree of Cyrus allows the Jews to return to Jerusalem" },
+      { date: "536–515 BC", text: "The construction of the second Temple in Jerusalem" },
+      { date: "326 BC", text: "Alexander the Great begins his conquests" },
+      { date: "175 BC", text: "Antiochus Epiphanes becomes king" },
+      { date: "167 BC", text: "Persecution of the Jews; the revolt begins" },
+      { date: "164 BC", text: "The Temple rededication" },
+      { date: "134 BC", text: "John Hyrcanus becomes high priest" }
+    ],
     events: [
       {
         icon: "🏛️",
@@ -379,6 +413,21 @@ const ERAS = [
     imageCredit: "The Last Supper — Leonardo da Vinci, c. 1498",
     bgScene: "https://commons.wikimedia.org/wiki/Special:FilePath/Ghirlandaio,_Domenico_-_Calling_of_the_Apostles_-_1481.jpg?width=600",
     summary: "God kept His biggest promise of all — He sent His own Son, Jesus, to live among us, teach us how to love, and save the whole world!",
+    chronology: [
+      { date: "ca. 6–4 BC", text: "The announcement of the birth of John the Baptist; the Annunciation to the Virgin Mary; the Birth of Jesus Christ in Bethlehem; his circumcision, the Presentation in the Temple, the Adoration of the Magi, the Flight to Egypt, and the martyrdom of the Holy Innocents; the Holy Family returns to Nazareth" },
+      { date: "AD 6–8", text: "The Finding of Christ in the Temple" },
+      { date: "Public Ministry", text: "The preaching of John the Baptist; the Baptism of Christ in the Jordan; the Temptation of Christ in the desert; the first disciples: John, Andrew, Peter, James, Philip, and Nathaniel; Christ preaches in the synagogues of Galilee, heals the sick, and casts out demons; the Sermon on the Mount" },
+      { date: "Until the Third Passover", text: "The second Passover; the healing of the paralytic at Bethesda; Christ debates the Pharisees; Christ chooses the Twelve Apostles; the multiplication of the loaves and fishes; the woman at the well; Simon's name changed to Peter; Christ announces his Death and Resurrection; the Transfiguration; the woman caught in adultery; the curing of the blind man at Siloam; the Parable of the Good Shepherd" },
+      { date: "Journey to Jerusalem", text: "Christ is rejected by the Samaritans; the mission of the seventy-two disciples; the Greatest Commandment; the Lord's Prayer; the parables of the Good Samaritan, the Prodigal Son, and the Rich Man and Lazarus; the resurrection of Lazarus; teaching on marriage and following Christ" },
+      { date: "Sunday", text: "The Passion, Death, Resurrection & Ascension begin: the Entrance into Jerusalem" },
+      { date: "Monday", text: "Christ curses the barren fig tree" },
+      { date: "Tuesday", text: "Christ debates the Pharisees; the widow's mite; the Parables of the Two Sons, the Wicked Husbandmen, the Wise and Foolish Virgins, and the Talents" },
+      { date: "Wednesday", text: "The Sanhedrin conspires against Christ; the anointing in Bethany; the betrayal by Judas" },
+      { date: "Thursday", text: "The Last Supper; the institution of the Eucharist; the New Commandment; prayer in the Garden of Gethsemane; the arrest of Christ" },
+      { date: "Friday", text: "The Passion, Death, and entombment in the sepulcher" },
+      { date: "Sunday", text: "The Resurrection; Christ's appearance to the women and the Apostles" },
+      { date: "40 days later", text: "Christ's Ascension into Heaven" }
+    ],
     events: [
       {
         icon: "⭐",

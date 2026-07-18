@@ -16,6 +16,7 @@ const detailDates = document.getElementById('detailDates');
 const detailSummary = document.getElementById('detailSummary');
 const detailBanner = document.getElementById('detailBanner');
 const imageCredit = document.getElementById('imageCredit');
+const detailChronologyWrap = document.getElementById('detailChronologyWrap');
 const eventCards = document.getElementById('eventCards');
 
 const progressFill = document.getElementById('progressFill');
@@ -224,6 +225,23 @@ function openEra(i) {
   detailBanner.src = era.image;
   detailBanner.alt = era.imageCredit;
   imageCredit.textContent = `🎨 ${era.imageCredit}`;
+
+  detailChronologyWrap.innerHTML = era.chronology ? `
+    <details class="ec-deeper detail-chronology">
+      <summary class="ec-deeper-toggle">
+        <span class="ec-deeper-label">📅 Detailed Chronology</span>
+        <span class="ec-deeper-arrow">▸</span>
+      </summary>
+      <div class="ec-deeper-content">
+        ${era.chronology.map((c, ci) => `
+          <div class="ec-deeper-point" style="--point-delay:${ci * 0.05}s">
+            <div class="ec-deeper-heading">${c.date}</div>
+            <div class="ec-deeper-text">${c.text}</div>
+          </div>
+        `).join('')}
+      </div>
+    </details>
+  ` : '';
 
   eventCards.innerHTML = era.events.map((ev, ci) => {
     const seen = visitedEvents.has(eventKey(i, ci));

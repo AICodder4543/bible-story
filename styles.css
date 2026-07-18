@@ -452,6 +452,24 @@ main {
 }
 
 .ec-deeper { margin-top: 12px; border-top: 1px dashed #e2e2e2; padding-top: 10px; }
+
+.detail-chronology {
+  margin: 0 0 20px;
+  border-top: none;
+  padding-top: 0;
+}
+.detail-chronology .ec-deeper-toggle {
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  color: #4a6b7a;
+}
+.detail-chronology .ec-deeper-toggle:hover { color: #2f4954; }
+.detail-chronology .ec-deeper-content {
+  background: #f2f7f8;
+  border-left: 4px solid #5b9ab0;
+  max-height: 340px;
+  overflow-y: auto;
+}
+.detail-chronology .ec-deeper-heading { color: #2f6577; }
 .ec-deeper-toggle {
   display: flex;
   align-items: center;
