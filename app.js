@@ -263,10 +263,14 @@ function openEra(i) {
 
     return `
     <div class="event-card${seen ? ' visited' : ''}" style="--era-color:${era.color}; --card-delay:${ci * 0.08}s" data-era="${i}" data-event="${ci}">
+      <label class="ec-check" data-era="${i}" data-event="${ci}" title="Mark as read">
+        <input type="checkbox" ${seen ? 'checked' : ''}>
+        <span class="ec-check-mark">✓</span>
+      </label>
       <div class="ec-icon">${ev.icon}</div>
       <div class="ec-title">${ev.title}</div>
       <div class="ec-text">${ev.text}</div>
-      <div class="ec-tap">${seen ? `✓ You met ${ev.character.name}!` : `✨ Meet ${ev.character.name}`}</div>
+      <div class="ec-tap">✨ Meet ${ev.character.name}</div>
       ${deeper}
     </div>
   `;
@@ -278,12 +282,6 @@ function openEra(i) {
       const evIdx = Number(card.dataset.event);
       const era2 = ERAS[eraIdx];
       const ev = era2.events[evIdx];
-
-      visitedEvents.add(eventKey(eraIdx, evIdx));
-      card.classList.add('visited');
-      card.querySelector('.ec-tap').textContent = `✓ You met ${ev.character.name}!`;
-      checkEraComplete(eraIdx);
-
       openCharacter(era2, ev.character);
     });
 
@@ -291,6 +289,14 @@ function openEra(i) {
     if (deeperEl) {
       deeperEl.addEventListener('click', (e) => e.stopPropagation());
     }
+
+    const checkEl = card.querySelector('.ec-check');
+    checkEl.addEventListener('click', (e) => e.stopPropagation());
+    checkEl.querySelector('input').addEventListener('change', (e) => {
+      const eraIdx = Number(checkEl.dataset.era);
+      const evIdx = Number(checkEl.dataset.event);
+      setEventRead(eraIdx, evIdx, e.target.checked, card);
+    });
   });
 
   overlay.classList.add('show');
@@ -341,13 +347,24 @@ function closeCharacter() {
 charCloseBtn.addEventListener('click', closeCharacter);
 charOverlay.addEventListener('click', closeCharacter);
 
+function setEventRead(eraIdx, evIdx, checked, card) {
+  const key = eventKey(eraIdx, evIdx);
+  if (checked) visitedEvents.add(key);
+  else visitedEvents.delete(key);
+  card.classList.toggle('visited', checked);
+  checkEraComplete(eraIdx);
+}
+
 function checkEraComplete(eraIdx) {
-  if (visited.has(eraIdx)) return;
   const era = ERAS[eraIdx];
   const allSeen = era.events.every((_, ci) => visitedEvents.has(eventKey(eraIdx, ci)));
-  if (allSeen) {
+  if (allSeen && !visited.has(eraIdx)) {
     visited.add(eraIdx);
     stationsEl.children[eraIdx].classList.add('visited');
+    updateProgress();
+  } else if (!allSeen && visited.has(eraIdx)) {
+    visited.delete(eraIdx);
+    stationsEl.children[eraIdx].classList.remove('visited');
     updateProgress();
   }
 }
