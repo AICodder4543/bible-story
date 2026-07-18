@@ -1,9 +1,10 @@
-const CACHE_NAME = 'bible-story-v1';
+const CACHE_NAME = 'bible-story-v2';
 const APP_SHELL = [
   'home.html',
   'index.html',
   'books-of-the-bible.html',
   'bible-explorers.html',
+  'scripture-summary.html',
   'styles.css',
   'app.js',
   'data.js',

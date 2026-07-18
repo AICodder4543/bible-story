@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief Summary of Sacred Scripture — The Bible Story</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3f87a6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2b2b2b;
+    --paper: #fdf9f1;
+    --sage: #3fa15e;
+    --gold: #d3a021;
+    --amethyst: #7a4fbf;
+    --teal: #3f87a6;
+    --ember: #c0392b;
+    --rose: #b12d51;
+    --emerald: #1a7a56;
+    --sapphire: #213e8c;
+    --line: rgba(43,43,43,0.1);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pageIn {
+    from { opacity: 0; transform: scale(0.985); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  #splash {
+    position: fixed; inset: 0; z-index: 999;
+    background: linear-gradient(180deg, #eaf6f8 0%, #fdf9f1 45%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.4s ease;
+  }
+  #splash img { width: 88px; height: 88px; animation: splashPulse 1.1s ease-in-out infinite; }
+  #splash p { font-family: 'Baloo 2', sans-serif; font-weight: 700; color: #6b4a2f; margin-top: 14px; font-size: 1rem; }
+  @keyframes splashPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  #splash.hide { opacity: 0; pointer-events: none; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background:
+      radial-gradient(circle at 10% 6%, rgba(63,135,166,0.20), transparent 40%),
+      radial-gradient(circle at 92% 10%, rgba(122,79,191,0.18), transparent 42%),
+      radial-gradient(circle at 88% 90%, rgba(63,161,94,0.16), transparent 45%),
+      radial-gradient(circle at 8% 92%, rgba(211,160,33,0.18), transparent 45%),
+      linear-gradient(180deg, #fff8ea 0%, #fdf9f1 100%);
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+  }
+  h1, h2, h3 { font-family: 'Baloo 2', sans-serif; margin: 0; }
+  a { color: inherit; }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 24px;
+    background: #ffffffcc;
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .top-bar h1 { font-size: clamp(1.05rem, 2.4vw, 1.5rem); font-weight: 800; color: #2c3e50; }
+  .back-link {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: #555;
+    white-space: nowrap;
+  }
+  .back-link:hover { color: var(--teal); }
+
+  .hero {
+    text-align: center;
+    padding: 3.2rem 1.5rem 1.6rem;
+    max-width: 760px;
+    margin: 0 auto;
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  .hero-emoji { font-size: 2.6rem; animation: splashPulse 2.4s ease-in-out infinite; }
+  .hero h2 {
+    font-size: clamp(1.7rem, 5vw, 2.6rem);
+    font-weight: 800;
+    color: #2c3e50;
+    margin-top: 10px;
+  }
+  .hero p {
+    max-width: 560px;
+    margin: 12px auto 0;
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: #555;
+  }
+
+  .search-wrap {
+    max-width: 480px;
+    margin: 1.6rem auto 0;
+    position: relative;
+  }
+  #searchInput {
+    width: 100%;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    padding: 13px 44px 13px 44px;
+    border-radius: 30px;
+    border: 2px solid var(--line);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  #searchInput:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(63,135,166,0.15); }
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.05rem;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: #eee;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .search-clear.show { display: flex; }
+
+  .testament-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 1.8rem auto 0;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+  .t-tab {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: 2px solid var(--line);
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .t-tab:hover { transform: translateY(-2px); }
+  .t-tab.active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(63,135,166,0.35);
+  }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .category {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  .category-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.2rem;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--cat-color, var(--teal));
+  }
+  .category-head .cat-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--cat-color, var(--teal)) 18%, white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .category-head h2 { font-size: clamp(1.2rem, 3vw, 1.55rem); color: #2c3e50; }
+  .category-head .cat-count {
+    margin-left: auto;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #888;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+
+  .book-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.1rem 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(.2,.9,.3,1.3), box-shadow 0.2s ease, border-color 0.2s ease;
+    animation: fadeInUp 0.4s ease forwards;
+  }
+  .book-card:hover, .book-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.1);
+    border-color: var(--cat-color, var(--teal));
+  }
+  .book-card.hidden { display: none; }
+  .book-card .bc-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .book-card h3 {
+    font-size: 1.05rem;
+    color: #2c3e50;
+    flex: 1;
+  }
+  .book-card .bc-arrow {
+    font-size: 0.85rem;
+    color: var(--cat-color, var(--teal));
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    flex-shrink: 0;
+  }
+  .book-card.open .bc-arrow { transform: rotate(90deg); }
+  .book-card .bc-outline {
+    list-style: none;
+    margin: 0; padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.4s ease;
+  }
+  .book-card.open .bc-outline { max-height: 500px; margin-top: 10px; }
+  .book-card .bc-outline li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+    padding: 6px 0 6px 16px;
+    border-left: 3px solid color-mix(in srgb, var(--cat-color, var(--teal)) 40%, white);
+    margin-bottom: 4px;
+  }
+  .book-card .bc-outline li .chap {
+    font-weight: 700;
+    color: var(--cat-color, var(--teal));
+  }
+
+  mark {
+    background: #f9e79f;
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+
+  #noResults {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #888;
+    font-size: 1.05rem;
+    display: none;
+  }
+  #noResults.show { display: block; }
+
+  footer {
+    text-align: center;
+    padding: 0 24px 40px;
+    color: #999;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <img src="logo-512.png" alt="The Bible Story logo">
+  <p>The Bible Story</p>
+</div>
+
+<header class="top-bar">
+  <h1>📜 Brief Summary of Sacred Scripture</h1>
+  <a class="back-link" href="home.html">← Home</a>
+</header>
+
+<section class="hero">
+  <div class="hero-emoji">📜</div>
+  <h2>What's inside every book?</h2>
+  <p>A chapter-by-chapter map of all 73 books of the Catholic Bible — search for a book, or browse by category to see exactly what happens and where.</p>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search a book — try “Exodus” or “Corinthians”">
+    <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
+  </div>
+  <div class="testament-tabs" id="testamentTabs">
+    <button class="t-tab active" data-testament="all">📖 All 73 Books</button>
+    <button class="t-tab" data-testament="OT">📜 Old Testament (46)</button>
+    <button class="t-tab" data-testament="NT">✝️ New Testament (27)</button>
+  </div>
+</section>
+
+<main id="content"></main>
+<p id="noResults">No book matches your search. Try another name! 🔎</p>
+
+<footer>All 73 books of the Catholic Bible, chapter by chapter.</footer>
+
+<script>
+const SUMMARY = [
+  { category: "Historical Books", testament: "OT", icon: "🏛️", color: "var(--gold)", books: [
+    { name: "Genesis", outline: [
+      { chap: "1–11", text: "Creation and origin of humankind" },
+      { chap: "12–36", text: "Abraham, Isaac, and Jacob" },
+      { chap: "37–50", text: "Joseph in Egypt" }
+    ]},
+    { name: "Exodus", outline: [
+      { chap: "1–18", text: "Moses and the pharaoh; the Exodus from Egypt" },
+      { chap: "19–40", text: "The people of Israel in Sinai" }
+    ]},
+    { name: "Leviticus", outline: [
+      { chap: "1–10", text: "Rules concerning priests and sacrifices" },
+      { chap: "11–16", text: "Law of ritual purity" },
+      { chap: "17–27", text: "Law of holiness" }
+    ]},
+    { name: "Numbers", outline: [
+      { chap: "1–11", text: "Censuses and rules in Sinai" },
+      { chap: "12–36", text: "Stages of the people of Israel in the desert: Kadesh and Moab" }
+    ]},
+    { name: "Deuteronomy", outline: [
+      { chap: "1–4", text: "Introduction and first discourse of Moses" },
+      { chap: "5–30", text: "Second and third discourses of Moses" },
+      { chap: "31–34", text: "Farewell and death of Moses" }
+    ]},
+    { name: "Joshua", outline: [
+      { chap: "1–12", text: "Conquering of the Promised Land" },
+      { chap: "13–24", text: "Distribution of land among the tribes" }
+    ]},
+    { name: "Judges", outline: [
+      { chap: "1–2", text: "Settlement of the tribes" },
+      { chap: "3–16", text: "The Judges of Israel" },
+      { chap: "17–21", text: "Various events" }
+    ]},
+    { name: "Ruth", outline: [
+      { chap: "1–4", text: "Ruth becomes part of the people of Israel" }
+    ]},
+    { name: "1 Samuel", outline: [
+      { chap: "1–7", text: "Samuel" },
+      { chap: "8–15", text: "Samuel and Saul" },
+      { chap: "16–21", text: "Saul and David" }
+    ]},
+    { name: "2 Samuel", outline: [
+      { chap: "1–24", text: "The reign of David" }
+    ]},
+    { name: "1 Kings", outline: [
+      { chap: "1–11", text: "The reign of Solomon" },
+      { chap: "12–17", text: "The Kingdoms of Israel and Judah until the time of Elijah" },
+      { chap: "18–2 Kings 1", text: "Kings in the time of Elijah" }
+    ]},
+    { name: "2 Kings", outline: [
+      { chap: "2–13", text: "Kings in the time of Elisha" },
+      { chap: "14–17", text: "Kings of Israel and Judah up to the fall of Samaria" },
+      { chap: "18–25", text: "The Kings of Judah until the Babylonian Exile" }
+    ]},
+    { name: "1 Chronicles", outline: [
+      { chap: "1–9", text: "Genealogical lists from Adam to the establishment of the monarchy" },
+      { chap: "10–29", text: "The reign of David" }
+    ]},
+    { name: "2 Chronicles", outline: [
+      { chap: "1–9", text: "The reign of Solomon" },
+      { chap: "10–36", text: "The Kings of Judah until the Babylonian Exile" }
+    ]},
+    { name: "Ezra", outline: [
+      { chap: "1–6", text: "Rebuilding of the Temple" },
+      { chap: "7–10", text: "Establishment of the Law" }
+    ]},
+    { name: "Nehemiah", outline: [
+      { chap: "1–13", text: "Rebuilding Jerusalem" }
+    ]},
+    { name: "Tobit", outline: [
+      { chap: "1–3", text: "Tobit, a just and pious man, suffers misfortune and incomprehension" },
+      { chap: "4–10", text: "Tobias's journey accompanied by the Archangel Raphael" },
+      { chap: "11–14", text: "Return and cure of Tobit" }
+    ]},
+    { name: "Judith", outline: [
+      { chap: "1–7", text: "The Israelites harassed by the Assyrians" },
+      { chap: "8–16", text: "Intervention by Judith" }
+    ]},
+    { name: "Esther", outline: [
+      { chap: "1–10", text: "Persecution of the Jews; salvation due to Esther's loyalty to God" }
+    ]},
+    { name: "1 Maccabees", outline: [
+      { chap: "1–2", text: "Hellenization of Jerusalem and the revolt of Mattathias" },
+      { chap: "3–16", text: "Judas Maccabeus and Simon" }
+    ]},
+    { name: "2 Maccabees", outline: [
+      { chap: "1–2", text: "Letters to the Jews in Egypt" },
+      { chap: "3–10", text: "Profanation and cleansing of the Temple" },
+      { chap: "10–15", text: "Peace and security for the Jews" }
+    ]}
+  ]},
+
+  { category: "Poetical and Wisdom Books", testament: "OT", icon: "🎶", color: "var(--emerald)", books: [
+    { name: "Job", outline: [
+      { chap: "1–2", text: "Prosperity and ruin of Job" },
+      { chap: "3–37", text: "Dialogues between Job and his friends" },
+      { chap: "38–41", text: "Speeches of the Lord and of Job" },
+      { chap: "42", text: "God blesses Job again" }
+    ]},
+    { name: "Psalms", outline: [
+      { chap: "1–150", text: "Collection of the 150 psalms" }
+    ]},
+    { name: "Proverbs", outline: [
+      { chap: "1–9", text: "Choice between wisdom and folly" },
+      { chap: "10–31", text: "Proverbs and sayings" }
+    ]},
+    { name: "Ecclesiastes", outline: [
+      { chap: "1–6", text: "All is vanity" },
+      { chap: "7–12", text: "Wisdom and the fear of God" }
+    ]},
+    { name: "Song of Songs", outline: [
+      { chap: "1–8", text: "Allegorical poems about love" }
+    ]},
+    { name: "Wisdom", outline: [
+      { chap: "1–6", text: "Wisdom and man's destiny" },
+      { chap: "6–9", text: "Nature and role of wisdom" },
+      { chap: "10–19", text: "Wisdom at work in history" }
+    ]},
+    { name: "Sirach (Ben Sira)", outline: [
+      { chap: "1–16", text: "God has the fullness of wisdom" },
+      { chap: "16–23", text: "God imbues all his works with wisdom" },
+      { chap: "24–32", text: "Wisdom lies in fulfilling the Commandments" },
+      { chap: "32–42", text: "Wisdom and the fear of God" },
+      { chap: "42–51", text: "Lessons of history" }
+    ]}
+  ]},
+
+  { category: "Prophetical Books", testament: "OT", icon: "🔥", color: "var(--amethyst)", books: [
+    { name: "Isaiah", outline: [
+      { chap: "1–39", text: "Oracles of condemnation and promises of salvation" },
+      { chap: "40–55", text: "Consolation and restoration" },
+      { chap: "56–66", text: "The glory of Jerusalem and salvation for the nations" }
+    ]},
+    { name: "Jeremiah", outline: [
+      { chap: "1–25", text: "Oracles concerning Israel and Judah" },
+      { chap: "26–45", text: "Biographical stories" },
+      { chap: "46–52", text: "Oracles against the nations and the fall of Jerusalem" }
+    ]},
+    { name: "Lamentations", outline: [
+      { chap: "1–5", text: "Five songs of lamentation" }
+    ]},
+    { name: "Baruch", outline: [
+      { chap: "1–5", text: "The exiles in Babylon" },
+      { chap: "6", text: "The letter of Jeremiah" }
+    ]},
+    { name: "Ezekiel", outline: [
+      { chap: "1–24", text: "Judgment and condemnation of Israel" },
+      { chap: "25–32", text: "Judgment and condemnation of the nations" },
+      { chap: "33–48", text: "Hope and the restoration of Israel" }
+    ]},
+    { name: "Daniel", outline: [
+      { chap: "1–6", text: "Daniel and his companions in Babylon" },
+      { chap: "7–12", text: "Daniel's dreams and visions" },
+      { chap: "13–14", text: "Susanna and other stories" }
+    ]},
+    { name: "Hosea", outline: [
+      { chap: "1–3", text: "Hosea's marriage" },
+      { chap: "4–11", text: "Sins of Israel" },
+      { chap: "12–14", text: "Israel's unfaithfulness" }
+    ]},
+    { name: "Joel", outline: [
+      { chap: "1–2", text: "A time of misfortune" },
+      { chap: "3–4", text: "Outpouring of the Spirit and the day of the Lord" }
+    ]},
+    { name: "Amos", outline: [
+      { chap: "1–2", text: "Judgment of the neighboring countries, of Judah, and of Israel" },
+      { chap: "3–6", text: "Israel warned and threatened" },
+      { chap: "7–9", text: "Prophetic visions" }
+    ]},
+    { name: "Obadiah", outline: [
+      { chap: "1", text: "Oracle against Edom, and the day of the Lord" }
+    ]},
+    { name: "Jonah", outline: [
+      { chap: "1–2", text: "God's call and the flight of Jonah" },
+      { chap: "3–4", text: "Jonah in Nineveh" }
+    ]},
+    { name: "Micah", outline: [
+      { chap: "1–3", text: "Divine judgment and punishment" },
+      { chap: "4–7", text: "Hope and restoration" }
+    ]},
+    { name: "Nahum", outline: [
+      { chap: "1–3", text: "The fall and destruction of Nineveh foretold" }
+    ]},
+    { name: "Habakkuk", outline: [
+      { chap: "1", text: "Dialogue between Habakkuk and God" },
+      { chap: "2", text: "Curses on oppressors" },
+      { chap: "3", text: "The psalm of Habakkuk" }
+    ]},
+    { name: "Zephaniah", outline: [
+      { chap: "1–2", text: "Judgment on Judah and on the nations" },
+      { chap: "3", text: "Promise of salvation" }
+    ]},
+    { name: "Haggai", outline: [
+      { chap: "1–2", text: "Rebuilding and glory of the Temple of Jerusalem" }
+    ]},
+    { name: "Zechariah", outline: [
+      { chap: "1–8", text: "Visions and discourses" },
+      { chap: "9–14", text: "Messianic oracles" }
+    ]},
+    { name: "Malachi", outline: [
+      { chap: "1–4", text: "Six disputes" }
+    ]}
+  ]},
+
+  { category: "Gospels", testament: "NT", icon: "✝️", color: "var(--ember)", books: [
+    { name: "Matthew", outline: [
+      { chap: "1–2", text: "Birth and infancy of Jesus" },
+      { chap: "3", text: "Prelude to public ministry" },
+      { chap: "4–16", text: "Jesus' ministry in Galilee: the Sermon on the Mount, miracles, and Parables of the Kingdom" },
+      { chap: "17–20", text: "On the way to Jerusalem" },
+      { chap: "21–25", text: "Jesus' ministry in Jerusalem: cleansing of the Temple, controversies" },
+      { chap: "26–28", text: "Passion, Death, and Resurrection of Jesus" }
+    ]},
+    { name: "Mark", outline: [
+      { chap: "1", text: "Preparation for public ministry" },
+      { chap: "1–8", text: "Parables and miracles in Galilee; Jesus' journey with his Apostles" },
+      { chap: "8–10", text: "On the way to Jerusalem" },
+      { chap: "11–13", text: "In Jerusalem: cleansing of the Temple, controversies, and eschatological discourse" },
+      { chap: "14–16", text: "Passion, Death, and Resurrection of Christ" }
+    ]},
+    { name: "Luke", outline: [
+      { chap: "1–2", text: "Birth and infancy of Jesus" },
+      { chap: "3", text: "Preparation for the public life" },
+      { chap: "4–9", text: "Miracles and preaching of the Lord" },
+      { chap: "9–19", text: "The way to Jerusalem: various teachings and the parables of God's mercy" },
+      { chap: "19–21", text: "Cleansing of the Temple, controversies, and eschatological discourse" },
+      { chap: "22–24", text: "Passion, Death, and Resurrection of Jesus" }
+    ]},
+    { name: "John", outline: [
+      { chap: "1", text: "Prologue" },
+      { chap: "2–4", text: "Jesus, author of salvation" },
+      { chap: "5", text: "Jesus reveals his divinity" },
+      { chap: "6", text: "Jesus is the Bread of Life" },
+      { chap: "7–11", text: "The great messianic revelation: Christ, sent by the Father, the Good Shepherd, Light of the world, equal to the Father" },
+      { chap: "12", text: "Jesus, acclaimed as the messianic King" },
+      { chap: "13–17", text: "Last Supper" },
+      { chap: "18–21", text: "Passion, Death, and Resurrection of Jesus" }
+    ]}
+  ]},
+
+  { category: "Acts of the Apostles", testament: "NT", icon: "🔥", color: "var(--sage)", books: [
+    { name: "Acts of the Apostles", outline: [
+      { chap: "1–7", text: "The Church in Jerusalem" },
+      { chap: "8–12", text: "The Church spreads beyond Jerusalem" },
+      { chap: "13–20", text: "Journeys of Paul" },
+      { chap: "21–28", text: "Paul in prison" }
+    ]}
+  ]},
+
+  { category: "Epistles", testament: "NT", icon: "✉️", color: "var(--teal)", books: [
+    { name: "Romans", outline: [
+      { chap: "1–11", text: "Justification by Jesus Christ" },
+      { chap: "12–16", text: "Living in charity" }
+    ]},
+    { name: "1 Corinthians", outline: [
+      { chap: "1–6", text: "Correction of various moral abuses" },
+      { chap: "7–16", text: "Answers to the questions of the faithful of Corinth" }
+    ]},
+    { name: "2 Corinthians", outline: [
+      { chap: "1–7", text: "Paul's defense against his enemies" },
+      { chap: "8–9", text: "Collection for the faithful of Jerusalem" },
+      { chap: "10–13", text: "Paul's apologia" }
+    ]},
+    { name: "Galatians", outline: [
+      { chap: "1–4", text: "The Gospel preached by St Paul" },
+      { chap: "5–6", text: "Christian freedom and charity" }
+    ]},
+    { name: "Ephesians", outline: [
+      { chap: "1–4", text: "Incorporation into Christ and the Church" },
+      { chap: "4–6", text: "New life in Christ and in the Church" }
+    ]},
+    { name: "Philippians", outline: [
+      { chap: "1–2", text: "Having the same sentiments as Christ" },
+      { chap: "3–4", text: "Christian life" }
+    ]},
+    { name: "Colossians", outline: [
+      { chap: "1–2", text: "The preeminence of Christ" },
+      { chap: "3–4", text: "New life in Christ" }
+    ]},
+    { name: "1 Thessalonians", outline: [
+      { chap: "1–3", text: "Evangelization" },
+      { chap: "4–5", text: "Spiritual progress in the Christian life" }
+    ]},
+    { name: "2 Thessalonians", outline: [
+      { chap: "1–2", text: "The judgment of God and the Second Coming of Christ" },
+      { chap: "3", text: "Perseverance in the chosen way" }
+    ]},
+    { name: "1 Timothy", outline: [
+      { chap: "1–2", text: "Sound doctrine" },
+      { chap: "3", text: "Sacred ministers of the Church" },
+      { chap: "4–6", text: "Pastoral directives" }
+    ]},
+    { name: "2 Timothy", outline: [
+      { chap: "1–3", text: "Preaching the Gospel and defending doctrine" },
+      { chap: "4", text: "Reward for faithfulness" }
+    ]},
+    { name: "Titus", outline: [
+      { chap: "1", text: "Titus's mission in Crete" },
+      { chap: "2–3", text: "Moral demands of the Faith" }
+    ]},
+    { name: "Philemon", outline: [
+      { chap: "1", text: "Intercession on behalf of Onesimus" }
+    ]},
+    { name: "Hebrews", outline: [
+      { chap: "1–10", text: "Excellence of the priesthood of Christ" },
+      { chap: "11–13", text: "Faith and perseverance in faith" }
+    ]},
+    { name: "James", outline: [
+      { chap: "1–2", text: "Faith and works" },
+      { chap: "2–5", text: "Practical applications" }
+    ]},
+    { name: "1 Peter", outline: [
+      { chap: "1–2", text: "Holiness in the world" },
+      { chap: "3–5", text: "Christian attitude to suffering" }
+    ]},
+    { name: "2 Peter", outline: [
+      { chap: "1–2", text: "Fidelity to received doctrine" },
+      { chap: "3", text: "Second Coming of the Lord" }
+    ]},
+    { name: "1 John", outline: [
+      { chap: "1–3", text: "Union with God and divine filiation" },
+      { chap: "4–5", text: "Faith in Jesus Christ and brotherly love" }
+    ]},
+    { name: "2 John", outline: [
+      { chap: "1", text: "Commandment of love" }
+    ]},
+    { name: "3 John", outline: [
+      { chap: "1", text: "The Apostle's joy at the faithfulness of the Christians" }
+    ]},
+    { name: "Jude", outline: [
+      { chap: "1", text: "Denunciation of false teachers and exhortation to virtue" }
+    ]}
+  ]},
+
+  { category: "Revelation", testament: "NT", icon: "🌈", color: "var(--sapphire)", books: [
+    { name: "Revelation", outline: [
+      { chap: "1–3", text: "Letters to the seven churches" },
+      { chap: "4–10", text: "Eschatological visions: sealed scroll, opening of the first six seals, four horsemen, seventh seal, trumpets" },
+      { chap: "11–22", text: "Christ's victory over the powers of evil and the Church in glory" }
+    ]}
+  ]}
+];
+
+const content = document.getElementById('content');
+const noResults = document.getElementById('noResults');
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+const testamentTabs = document.getElementById('testamentTabs');
+let activeTestament = 'all';
+
+function highlight(text, q) {
+  if (!q) return text;
+  const idx = text.toLowerCase().indexOf(q.toLowerCase());
+  if (idx === -1) return text;
+  return text.slice(0, idx) + '<mark>' + text.slice(idx, idx + q.length) + '</mark>' + text.slice(idx + q.length);
+}
+
+function render() {
+  content.innerHTML = '';
+  const q = searchInput.value.trim();
+  let anyVisible = false;
+
+  SUMMARY.forEach((cat, catIdx) => {
+    if (activeTestament !== 'all' && cat.testament !== activeTestament) return;
+
+    const matchingBooks = cat.books.filter((b) => !q || b.name.toLowerCase().includes(q.toLowerCase()));
+    if (q && matchingBooks.length === 0) return;
+
+    const section = document.createElement('div');
+    section.className = 'category';
+    section.style.setProperty('--cat-color', cat.color);
+    section.style.animationDelay = `${catIdx * 0.05}s`;
+
+    section.innerHTML = `
+      <div class="category-head">
+        <div class="cat-icon">${cat.icon}</div>
+        <h2>${cat.category}</h2>
+        <div class="cat-count">${matchingBooks.length} book${matchingBooks.length === 1 ? '' : 's'}</div>
+      </div>
+      <div class="book-grid">
+        ${matchingBooks.map((b, bi) => `
+          <div class="book-card${q ? ' open' : ''}" style="--cat-color:${cat.color}; animation-delay:${bi * 0.04}s" tabindex="0" data-book="${b.name}">
+            <div class="bc-head">
+              <h3>${highlight(b.name, q)}</h3>
+              <span class="bc-arrow">▸</span>
+            </div>
+            <ul class="bc-outline">
+              ${b.outline.map((o) => `<li><span class="chap">${o.chap}:</span> ${o.text}</li>`).join('')}
+            </ul>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    content.appendChild(section);
+    anyVisible = true;
+  });
+
+  noResults.classList.toggle('show', !anyVisible);
+
+  [...content.querySelectorAll('.book-card')].forEach((card) => {
+    card.addEventListener('click', () => card.classList.toggle('open'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
+    });
+  });
+}
+
+searchInput.addEventListener('input', () => {
+  searchClear.classList.toggle('show', !!searchInput.value);
+  render();
+});
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchClear.classList.remove('show');
+  searchInput.focus();
+  render();
+});
+
+testamentTabs.addEventListener('click', (e) => {
+  const btn = e.target.closest('.t-tab');
+  if (!btn) return;
+  activeTestament = btn.dataset.testament;
+  [...testamentTabs.children].forEach((t) => t.classList.toggle('active', t === btn));
+  render();
+});
+
+render();
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('splash').classList.add('hide');
+});
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+</script>
+
+</body>
+</html>
