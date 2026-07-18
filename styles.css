@@ -173,7 +173,9 @@ main {
   display: flex;
   align-items: center;
   gap: 0;
+  width: fit-content;
   min-width: max-content;
+  margin: 0 auto;
   padding: 0 8vw;
   z-index: 1;
 }

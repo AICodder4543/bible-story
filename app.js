@@ -93,6 +93,10 @@ function drawRoad() {
   const width = stationsEl.scrollWidth;
   const height = roadViewport.clientHeight;
 
+  // .stations is centered with margin:auto when it's narrower than the
+  // viewport, so the road-path svg (anchored at left:0 of road-viewport)
+  // needs to shift to match wherever .stations actually starts.
+  roadPath.style.left = `${stationsEl.offsetLeft}px`;
   roadPath.setAttribute('width', width);
   roadPath.setAttribute('height', height);
   roadPath.setAttribute('viewBox', `0 0 ${width} ${height}`);
