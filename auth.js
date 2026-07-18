@@ -3,11 +3,14 @@
 // even downloads the Firebase SDK) until real values are added to
 // firebase-config.js — see that file for setup steps.
 //
-// Pages that need to react to sign-in (e.g. to sync their own data) can
-// define window.onAuthReady(user, db) — called once after Firebase Auth
-// and Firestore are ready, and again every time the signed-in user changes.
+// Pages that need to react to sign-in (e.g. to sync their own data, or to
+// gate access) register a callback with window.authReady.push((user, db) =>
+// {...}) — each one is called once Firebase Auth + Firestore are ready, and
+// again every time the signed-in user changes.
 
 const FIREBASE_CONFIGURED = typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY';
+
+window.authReady = window.authReady || [];
 
 let currentUser = null;
 let db = null;
@@ -37,7 +40,7 @@ async function initFirebase() {
   auth.onAuthStateChanged((user) => {
     currentUser = user;
     renderAuthUI();
-    if (window.onAuthReady) window.onAuthReady(user, db);
+    window.authReady.forEach((cb) => cb(user, db));
   });
 
   // Popups get blocked by some browsers (and often inside the packaged

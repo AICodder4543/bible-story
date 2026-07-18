@@ -1,6 +1,6 @@
 // Firestore sync of quiz progress/streaks, layered on top of auth.js.
 // Relies on loadProgress/saveProgress/bestStreak/renderTodayCard/
-// renderStreak/renderArchive from quiz.js, and on window.onAuthReady being
+// renderStreak/renderArchive from quiz.js, and on window.authReady being
 // called by auth.js once Firebase Auth + Firestore are ready.
 
 function pushToCloud() {
@@ -39,7 +39,8 @@ async function syncFromCloudOnSignIn() {
   pushToCloud();
 }
 
-window.onAuthReady = (user) => {
+window.authReady = window.authReady || [];
+window.authReady.push((user) => {
   if (user) syncFromCloudOnSignIn();
-};
+});
 window.onQuizProgressChange = () => pushToCloud();
