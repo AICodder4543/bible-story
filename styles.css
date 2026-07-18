@@ -516,12 +516,9 @@ main {
 
 .character-modal {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0.85) rotateY(90deg);
+  inset: clamp(20px, 6vh, 96px) clamp(20px, 6vw, 96px);
+  transform: scale(0.85) rotateY(90deg);
   backface-visibility: hidden;
-  width: min(96vw, 720px);
-  max-height: 94dvh;
   overflow-y: auto;
   background: var(--paper);
   border-radius: 22px;
@@ -536,7 +533,7 @@ main {
 .character-modal.show {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+  transform: scale(1) rotateY(0deg);
 }
 
 .character-avatar {
