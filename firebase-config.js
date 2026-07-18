@@ -25,11 +25,13 @@
 // Until real values replace the placeholders below, the site works exactly
 // as before — no sign-in button appears, and everything stays local to the
 // device (localStorage only).
-const FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyD8Mr3j3CF-PNtCf_MIy_U4gQxqpgCq_YY",
+  authDomain: "the-bible-story-timeline.firebaseapp.com",
+  projectId: "the-bible-story-timeline",
+  storageBucket: "the-bible-story-timeline.firebasestorage.app",
+  messagingSenderId: "876926083324",
+  appId: "1:876926083324:web:165ddada3f8eb700a53779",
+  measurementId: "G-LJVFNRWXW5"
 };
