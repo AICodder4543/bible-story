@@ -145,6 +145,9 @@ main {
   padding: 10px 0 90px;
   min-height: calc(100dvh - 70px);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .road-viewport {
