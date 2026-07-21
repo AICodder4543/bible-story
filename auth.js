@@ -10,6 +10,12 @@
 
 const FIREBASE_CONFIGURED = typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY';
 
+// The packaged Android app's WebView appends this to its user agent (see
+// MainActivity.kt) and exposes window.AndroidBridge.signIn(), which performs
+// Google Sign-In natively (no browser/Chrome involved) and calls back into
+// window.onNativeSignIn(idToken) below.
+const IS_NATIVE_APP = /BibleStoryApp/.test(navigator.userAgent) && !!window.AndroidBridge;
+
 window.authReady = window.authReady || [];
 
 let currentUser = null;
@@ -74,6 +80,10 @@ function renderAuthUI() {
 }
 
 function signIn() {
+  if (IS_NATIVE_APP) {
+    window.AndroidBridge.signIn();
+    return;
+  }
   const provider = new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider).catch((err) => {
     const popupIssues = ['auth/popup-blocked', 'auth/operation-not-supported-in-this-environment'];
@@ -84,6 +94,17 @@ function signIn() {
     alert('Sign-in failed: ' + err.message);
   });
 }
+
+// Called by MainActivity.kt after native Google Sign-In succeeds.
+window.onNativeSignIn = function (idToken) {
+  const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
+  auth.signInWithCredential(credential).catch((err) => {
+    alert('Sign-in failed: ' + err.message);
+  });
+};
+window.onNativeSignInError = function (message) {
+  alert('Sign-in failed: ' + message);
+};
 
 if (FIREBASE_CONFIGURED) {
   initFirebase().catch((err) => console.warn('Firebase failed to load:', err));
