@@ -80,10 +80,27 @@ function renderAuthUI() {
 }
 
 function signIn() {
-  if (IS_NATIVE_APP) {
-    window.AndroidBridge.signIn();
+  // Re-check window.AndroidBridge live (rather than trusting only the
+  // cached IS_NATIVE_APP) in case the interface wasn't injected yet when
+  // this script first ran, and wrap in try/catch so any failure is visible
+  // instead of silently doing nothing.
+  const hasNativeBridge = /BibleStoryApp/.test(navigator.userAgent) &&
+    window.AndroidBridge && typeof window.AndroidBridge.signIn === 'function';
+
+  if (IS_NATIVE_APP || hasNativeBridge) {
+    try {
+      window.AndroidBridge.signIn();
+    } catch (e) {
+      alert('Native sign-in failed to start: ' + e.message);
+    }
     return;
   }
+
+  if (/BibleStoryApp/.test(navigator.userAgent)) {
+    alert('Sign-in bridge not available in this app build. Please reinstall the latest APK.');
+    return;
+  }
+
   const provider = new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider).catch((err) => {
     const popupIssues = ['auth/popup-blocked', 'auth/operation-not-supported-in-this-environment'];
