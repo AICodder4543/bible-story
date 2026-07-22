@@ -642,6 +642,9 @@ main {
 :root[data-theme="dark"] .top-bar h1 { color: #eae6df; }
 :root[data-theme="dark"] .progress-bar { background: #3a3d42; }
 :root[data-theme="dark"] .station-badge { background: #2a2d33; }
+:root[data-theme="dark"] .station-label { color: #eae6df; }
+:root[data-theme="dark"] .station-dates { color: #a7a29a; }
+:root[data-theme="dark"] .progress-label { color: #cfcac1; }
 :root[data-theme="dark"] .theme-toggle-btn { background: #2a2d33; border-color: rgba(255,255,255,0.15); color: #eae6df; }
 
 :root[data-theme="dark"] .detail-panel,
