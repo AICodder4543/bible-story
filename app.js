@@ -375,14 +375,22 @@ function updateProgress() {
 }
 
 // ---------- Init ----------
+// Hide the splash as soon as the DOM/JS is ready rather than waiting for
+// every image on the page (window 'load') plus an extra artificial delay —
+// the splash was sitting for a lot longer than it needed to.
 window.addEventListener('resize', drawRoad);
-window.addEventListener('load', () => {
+function initApp() {
   drawRoad();
   goTo(0);
   preloadEraImages();
   const splash = document.getElementById('splash');
-  if (splash) setTimeout(() => splash.classList.add('hide'), 500);
-});
+  if (splash) splash.classList.add('hide');
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
 setTimeout(drawRoad, 50);
 
 // Quietly fetch every era's background/banner image in the background after
