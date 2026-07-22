@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brief Summary of Sacred Scripture — The Bible Story</title>
+<script src="theme.js"></script>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -297,6 +298,31 @@
     color: #999;
     font-size: 0.85rem;
   }
+
+  /* ---------- Dark mode ---------- */
+  :root[data-theme="dark"] html,
+  :root[data-theme="dark"] body {
+    background:
+      radial-gradient(circle at 10% 6%, rgba(63,135,166,0.10), transparent 40%),
+      radial-gradient(circle at 92% 10%, rgba(122,79,191,0.09), transparent 42%),
+      radial-gradient(circle at 88% 90%, rgba(63,161,94,0.08), transparent 45%),
+      radial-gradient(circle at 8% 92%, rgba(211,160,33,0.09), transparent 45%),
+      linear-gradient(180deg, #14171b 0%, #1b1e23 100%);
+    color: #eae6df;
+  }
+  :root[data-theme="dark"] .top-bar { background: #1b1e23cc; }
+  :root[data-theme="dark"] .top-bar h1,
+  :root[data-theme="dark"] .hero h2,
+  :root[data-theme="dark"] .category-head h2,
+  :root[data-theme="dark"] .book-card h3 { color: #eae6df; }
+  :root[data-theme="dark"] .hero p { color: #b8b2a8; }
+  :root[data-theme="dark"] #searchInput { background: #23262b; border-color: #3a3d42; color: #eae6df; }
+  :root[data-theme="dark"] .t-tab { background: #23262b; border-color: #3a3d42; color: #eae6df; }
+  :root[data-theme="dark"] .cat-icon { background: #2a2d33; }
+  :root[data-theme="dark"] .cat-count { background: #23262b; border-color: #3a3d42; color: #b8b2a8; }
+  :root[data-theme="dark"] .book-card { background: #23262b; border-color: #3a3d42; }
+  :root[data-theme="dark"] .book-card .bc-outline li { color: #cfcac1; }
+  :root[data-theme="dark"] mark { background: #6b5b1e; color: #f2efe9; }
 </style>
 </head>
 <body>
@@ -308,7 +334,10 @@
 
 <header class="top-bar">
   <h1>📜 Brief Summary of Sacred Scripture</h1>
-  <a class="back-link" href="home.html">← Home</a>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <a class="back-link" href="home.html">← Home</a>
+    <div id="themeToggle"></div>
+  </div>
 </header>
 
 <section class="hero">

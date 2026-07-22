@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bible-story-v3';
+const CACHE_NAME = 'bible-story-v4';
 const APP_SHELL = [
   'home.html',
   'index.html',
@@ -8,6 +8,7 @@ const APP_SHELL = [
   'styles.css',
   'app.js',
   'data.js',
+  'theme.js',
   'manifest.json',
   'logo-512.png',
   'icon-192.png',

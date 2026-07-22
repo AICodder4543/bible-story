@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daily Catholic Quiz — The Bible Story</title>
+<script src="theme.js"></script>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -283,6 +284,34 @@
   }
 
   footer { text-align: center; padding: 0 24px 40px; color: #999; font-size: 0.85rem; }
+
+  /* ---------- Dark mode ---------- */
+  :root[data-theme="dark"] html,
+  :root[data-theme="dark"] body {
+    background:
+      radial-gradient(circle at 12% 8%, rgba(122,79,191,0.15), transparent 40%),
+      radial-gradient(circle at 88% 12%, rgba(211,160,33,0.15), transparent 40%),
+      linear-gradient(180deg, #14171b 0%, #1b1e23 100%);
+    color: #eae6df;
+  }
+  :root[data-theme="dark"] .top-bar { background: #1b1e23cc; }
+  :root[data-theme="dark"] .top-bar h1,
+  :root[data-theme="dark"] .hero-text h2,
+  :root[data-theme="dark"] .quiz-theme,
+  :root[data-theme="dark"] .q-text,
+  :root[data-theme="dark"] .archive-header h2,
+  :root[data-theme="dark"] .archive-item .a-theme { color: #eae6df; }
+  :root[data-theme="dark"] .hero-text p { color: #b8b2a8; }
+  :root[data-theme="dark"] .streak-pill,
+  :root[data-theme="dark"] .auth-btn-google,
+  :root[data-theme="dark"] .auth-signed-in,
+  :root[data-theme="dark"] .card,
+  :root[data-theme="dark"] .archive-item { background: #23262b; border-color: #3a3d42; }
+  :root[data-theme="dark"] .auth-name { color: #eae6df; }
+  :root[data-theme="dark"] .choice { background: #2a2d33; border-color: #3a3d42; color: #eae6df; }
+  :root[data-theme="dark"] .note { background: #2f3239; color: #cfcac1; }
+  :root[data-theme="dark"] .archive-modal { background: #23262b; }
+  :root[data-theme="dark"] .close-btn { background: #3a3d42; color: #eae6df; }
 </style>
 </head>
 <body>
@@ -299,6 +328,7 @@
       <span class="lab">day streak</span>
     </div>
     <div id="authWrap"></div>
+    <div id="themeToggle"></div>
   </div>
 </header>
 

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>73 Books, One Hand — The Catholic Bible</title>
+<script src="theme.js"></script>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -498,9 +499,34 @@
   }
 
   ::selection{background:var(--gold); color:var(--ink);}
+
+  /* ---------- Dark mode ---------- */
+  :root[data-theme="dark"]{
+    --ink:#eae6df;
+    --cream:#14171b;
+    --paper:#23262b;
+    --line: rgba(234,230,223,0.14);
+  }
+  :root[data-theme="dark"] body{
+    background:
+      radial-gradient(circle at 10% 6%, rgba(232,163,61,0.10), transparent 38%),
+      radial-gradient(circle at 92% 10%, rgba(139,107,174,0.10), transparent 42%),
+      radial-gradient(circle at 88% 90%, rgba(63,135,166,0.10), transparent 45%),
+      radial-gradient(circle at 8% 92%, rgba(193,80,46,0.08), transparent 45%),
+      var(--cream);
+  }
+  :root[data-theme="dark"] .hero-badge{ background:var(--paper); }
+  :root[data-theme="dark"] .btn-primary{ background:linear-gradient(135deg, #2c3646, #1b2230); }
+  :root[data-theme="dark"] .btn-ghost{ color:var(--ink); }
+  :root[data-theme="dark"] footer{ background:#0f1114; }
+
+  #themeToggle{ position:fixed; top:14px; left:16px; z-index:60; }
+  #themeToggle .theme-toggle-btn{ background:var(--paper); border-color:var(--line); color:var(--ink); }
 </style>
 </head>
 <body>
+
+<div id="themeToggle"></div>
 
 <section class="hero">
   <div class="hero-badge"><span class="dot"></span>🖐️ THE CATHOLIC BIBLE, EXPLAINED WITH ONE HAND</div>
