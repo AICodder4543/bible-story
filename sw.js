@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bible-story-v4';
+const CACHE_NAME = 'bible-story-v5';
 const APP_SHELL = [
   'home.html',
   'index.html',
@@ -39,7 +39,8 @@ self.addEventListener('activate', (event) => {
 // (images, fonts, manifest) is cache-first since it rarely changes and
 // benefits more from instant loading.
 function isFreshnessCritical(url) {
-  return url.pathname.endsWith('.html') || url.pathname.endsWith('.js') || url.pathname === '/' || url.pathname.endsWith('/');
+  return url.pathname.endsWith('.html') || url.pathname.endsWith('.js') || url.pathname.endsWith('.css') ||
+    url.pathname === '/' || url.pathname.endsWith('/');
 }
 
 self.addEventListener('fetch', (event) => {
