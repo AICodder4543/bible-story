@@ -233,7 +233,7 @@ function openArchiveModal(dateStr) {
 
   const summary = entry
     ? `<div class="already-done-banner">✓ You scored ${entry.score}/${entry.total} on this day</div>`
-    : `<div class="already-done-banner" style="background:#fdf3e3;border-color:#d3a021;color:#8a5a0c;">You didn't take this quiz — here are the questions and answers.</div>`;
+    : `<div class="already-done-banner already-done-banner-missed">You didn't take this quiz — here are the questions and answers.</div>`;
 
   archiveModalContent.innerHTML = `
     <div class="quiz-date-row">

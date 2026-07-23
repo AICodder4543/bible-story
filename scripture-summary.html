@@ -346,7 +346,7 @@
   <p>A chapter-by-chapter map of all 73 books of the Catholic Bible — search for a book, or browse by category to see exactly what happens and where.</p>
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" placeholder="Search a book — try “Exodus” or “Corinthians”">
+    <input type="text" id="searchInput" placeholder="Search anything — a book, a name, an event, a chapter…">
     <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
   </div>
   <div class="testament-tabs" id="testamentTabs">
@@ -728,7 +728,12 @@ function render() {
   SUMMARY.forEach((cat, catIdx) => {
     if (activeTestament !== 'all' && cat.testament !== activeTestament) return;
 
-    const matchingBooks = cat.books.filter((b) => !q || b.name.toLowerCase().includes(q.toLowerCase()));
+    const ql = q.toLowerCase();
+    const matchingBooks = cat.books.filter((b) => {
+      if (!q) return true;
+      if (b.name.toLowerCase().includes(ql)) return true;
+      return b.outline.some((o) => o.text.toLowerCase().includes(ql) || o.chap.toLowerCase().includes(ql));
+    });
     if (q && matchingBooks.length === 0) return;
 
     const section = document.createElement('div');
@@ -750,7 +755,7 @@ function render() {
               <span class="bc-arrow">▸</span>
             </div>
             <ul class="bc-outline">
-              ${b.outline.map((o) => `<li><span class="chap">${o.chap}:</span> ${o.text}</li>`).join('')}
+              ${b.outline.map((o) => `<li><span class="chap">${highlight(o.chap, q)}:</span> ${highlight(o.text, q)}</li>`).join('')}
             </ul>
           </div>
         `).join('')}
